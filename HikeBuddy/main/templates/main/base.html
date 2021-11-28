@@ -1,0 +1,30 @@
+<html lang="he">
+	<head>
+		<title>{% block title %}Hike Buddy{% endblock %}</title>
+		<meta charset="utf-8" />
+		<style type="text/css">
+		body {
+			direction: rtl;
+		}
+		</style>
+	</head>
+	<body>
+	<center>
+		<table>
+			<tr>
+				<th>כפתור_ראשון</th>
+				<th></th>
+				<th>כפתור_שני</th>
+				<th></th>
+				<th>כפתור_שלישי</th>
+			</tr>
+		</table>
+	</center>
+	<div id = "content", name = "content">
+		{% block content %}
+		{% endblock %}
+	</div>
+	
+	
+	</body>
+</html>
