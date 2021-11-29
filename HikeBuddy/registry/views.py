@@ -9,6 +9,7 @@ def signup(response):
         form = RegisterForm(response.POST)
         if form.is_valid():
             user = form.save()
+            Group.objects.get_or_create(name=form.cleaned_data['userType'])
             cur_group = Group.objects.get(name=form.cleaned_data['userType'])
             cur_group.user_set.add(user)
             return redirect("/login/")
