@@ -1,0 +1,35 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<center><h1>Profile</h1></center>
+
+{% if not user.is_authenticated %}
+	<p>Not logged into any account.</p>
+	<a href="/login/"><p>Login</p></a>
+	
+{% else %}
+	<table>
+		<tr>
+			<td>Username:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td>{{user.username}}</td>
+		</tr>
+		<tr>
+			<td>Email address:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td>{{user.email}}</td>
+		</tr>
+		<tr>
+			<td>User type:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td>{{user.groups.get.name.capitalize}}</td>
+		</tr>
+		{% if user.groups.get.name == 'host' %}
+		<tr>
+			<td>My hosting places:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td>None &nbsp;&nbsp;&nbsp;&nbsp; <a href>add</a></td>
+		</tr>
+		{% endif %}
+	</table>
+{% endif %}
+
+{% endblock %}
