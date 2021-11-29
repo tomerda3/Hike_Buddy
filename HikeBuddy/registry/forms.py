@@ -9,7 +9,8 @@ class RegisterForm(UserCreationForm):
     ('guide', 'Guide'),
     ('host', 'Host'),]
     userType = forms.CharField(label='User type', widget=forms.Select(choices=USER_TYPES))
+    phone = forms.CharField(label='Phone number', max_length=10, required=False)
     
     class Meta:
         model = User
-        fields = ["username", "userType", "email", "password1", "password2"]
+        fields = ["username", "userType", "email", "phone", "password1", "password2"]
