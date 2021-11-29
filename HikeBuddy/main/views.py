@@ -11,8 +11,6 @@ def profile(response):
 
 def toggle_active(response):
     user = User.objects.get(pk=response.user.id)
-    print(user)
-    print(user.is_active)
     user.is_active = not user.is_active
     user.save()
     redirect("/")
