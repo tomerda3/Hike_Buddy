@@ -4,6 +4,8 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+<center><h1>Sign Up</h1></center>
+
 	<form method="POST" action="/signup/" class="form-group">
 		{% csrf_token %}
 		{{form|crispy}}
