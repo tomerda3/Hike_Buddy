@@ -26,10 +26,18 @@
 		{% if user.groups.get.name == 'host' %}
 		<tr>
 			<td>My hosting places:&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			<td>None &nbsp;&nbsp;&nbsp;&nbsp; <a href>add</a></td>
+			<td>None &nbsp;&nbsp; <a href>add</a></td>
+			<td> <a href>save</a></td>
+			<form name="example" method="get" action="html_page13.html">
+				phone number: <input type="text" name="firstname">
+     			cost per night:<input type="text" name="costumier">
+				My limitations :<input type="text" name="lim">
+				kosher:<input type="checkbox" name="check1" checked>
+			</form>
+
 		</tr>
 		{% endif %}
 	</table>
 {% endif %}
 
-{% endblock %}
+{% endblock %}%}
