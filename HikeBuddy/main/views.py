@@ -1,10 +1,7 @@
-from django.shortcuts import render
-# from django.http import HttpResponse
-# from .models import ToDoList, Item
+from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
 # Create your views here.
 
-# def index(response):
-#     return HttpResponse("<center><h1>Main</h1></center>")
 
 def home(response):
     return render(response, "main/home.html", {})
@@ -12,11 +9,11 @@ def home(response):
 def profile(response):
     return render(response, "main/profile.html", {})
 
-# def index(response, id):
-#     ls = ToDoList.objects.get(id=id)
-#     return render(response, "main/base.html", {})
-
-# def index(response, name):
-#     ls = ToDoList.objects.get(name=name)
-#     item = ls.item_set.get(id=1)
-#     return HttpResponse("<center><h1>%s</h1><p>%s</p></center>" %(ls.name, str(item.text)))
+def toggle_active(response):
+    user = User.objects.get(pk=response.user.id)
+    print(user)
+    print(user.is_active)
+    user.is_active = not user.is_active
+    user.save()
+    redirect("/")
+    return render(response, "main/home.html", {})
