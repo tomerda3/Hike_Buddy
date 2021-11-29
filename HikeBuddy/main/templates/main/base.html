@@ -13,8 +13,18 @@
 	<div id = "content", name = "content">
 		<div class="row justify-content-center">
 			<div class="col-8">
+			
 			<h1 class="mt-2">Hike Buddy</h1>
 			<hr class="mt-0 mb-4">
+			
+			{% if user.is_authenticated %}
+			<p style="text-align:left;">
+				<td><left>Hello {{request.user.username}}</left></td>
+				<span style="float:right;">
+					<td><right><a href="/logout">Logout</a></right></td>
+				</span>
+			</p>
+			{% endif %}
 			
 			<center>
 					<table>
@@ -23,13 +33,14 @@
 							<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 							<td><h5>Second Button</h5></td>
 							<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-							<td><h5>Third Button</h5></td>
+							<td><h5>About</h5></td>
 						</tr>
 					</table>
 			</center>
-			
+				
 				{% block content %}
 				{% endblock %}
+				
 			</div>
 		</div>
 	</div>
