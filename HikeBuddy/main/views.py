@@ -9,6 +9,9 @@ from django.shortcuts import render
 def home(response):
     return render(response, "main/home.html", {})
 
+def profile(response):
+    return render(response, "main/profile.html", {})
+
 # def index(response, id):
 #     ls = ToDoList.objects.get(id=id)
 #     return render(response, "main/base.html", {})
