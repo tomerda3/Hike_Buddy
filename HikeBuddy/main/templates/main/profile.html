@@ -2,6 +2,9 @@
 
 {% block title %}Profile{% endblock %}
 
+
+{% load crispy_forms_tags %}
+
 {% block content %}
 <center><h1>Profile</h1></center>
 
@@ -26,10 +29,34 @@
 		{% if user.groups.get.name == 'host' %}
 		<tr>
 			<td>My hosting places:&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			<td>None &nbsp;&nbsp;&nbsp;&nbsp; <a href>add</a></td>
+			<td>None &nbsp;&nbsp;</td>
 		</tr>
 		{% endif %}
 	</table>
+	
+	<br><br><br>
+<center>
+	{% if user.is_active %}
+	<p>Account is active</p>
+	
+	<form method="POST" action="/active/" class="form-group">
+		{% csrf_token %}
+		{{form|crispy}}
+		<button type="submit" class="btn btn-warning">Make my account inactive</button>
+	</form>
+	
+	{% else %}
+	<p>Account is inactive</p>
+	
+	<form method="POST" action="/active/" class="form-group">
+		{% csrf_token %}
+		{{form|crispy}}
+		<button type="submit" class="btn btn-warning">Make my account active</button>
+	</form>
+	
+	{% endif %}
+</center>
+	
 {% endif %}
 
-{% endblock %}
+{% endblock %}%}
