@@ -1,0 +1,9 @@
+<h3>feedback Form</h3>
+
+<form method="post" action="{% url 'feedback' %}">
+	{% csrf_token %}
+	<textarea name="message" const placeholder="First ,Preservation points:
+sec points for improvement:"
+	></textarea>
+	<input type="submit" />
+</form>
