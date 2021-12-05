@@ -25,6 +25,6 @@ urlpatterns = [
     path('active/', v2.toggle_active, name="toggle active"),
     path('', include("main.urls")),
     path('', include("django.contrib.auth.urls")),
-    path('feedback/', include("app.urls")),
+    path('feedback/', v2.feedback, name="feedback"),
 
 ]
