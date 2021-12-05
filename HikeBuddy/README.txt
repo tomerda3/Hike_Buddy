@@ -33,6 +33,9 @@ pip install django-crispy-forms
 Watching for file changes with StatReloader
 Exception in thread django-main-thread:
 ...
+או במידה ומופיע הכיתוב:
+You have _ unapplied migration(s).
+...
 
 יש לכתוב ב-Command Prompt (בתוך תיקיית Hike Buddy):
 python manage.py makemigrations
