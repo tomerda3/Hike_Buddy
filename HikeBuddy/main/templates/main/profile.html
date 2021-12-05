@@ -23,6 +23,16 @@
 			<td>{{user.email}}</td>
 		</tr>
 		<tr>
+			<td>Phone number:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td>
+			{% if user.phone %}
+			PHONE {{user.phone}}
+			{% else %}
+			NO PHONE {{user.phone}}
+			{% endif %}
+			</td>
+		</tr>
+		<tr>
 			<td>User type:&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			<td>{{user.groups.get.name.capitalize}}</td>
 		</tr>
@@ -32,6 +42,14 @@
 			<td>None &nbsp;&nbsp;</td>
 		</tr>
 		{% endif %}
+		<tr>
+			<td>Location:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td>{{loc}}</td>
+		</tr>
+		<tr>
+			<td>IP:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td>{{ip}}</td>
+		</tr>
 	</table>
 	
 	<br><br><br>
