@@ -5,13 +5,14 @@ from django.conf import settings
 
 # Create your views here.
 
-
 def home(response):
     return render(response, "main/home.html", {})
 
 
 def profile(response):
-    return render(response, "main/profile.html", {})
+    public_ip = get_public_ip()
+    loc = get_loc(public_ip)
+    return render(response, "main/profile.html", {'ip': public_ip, 'loc': loc})
 
 
 def toggle_active(response):
@@ -22,22 +23,40 @@ def toggle_active(response):
     return render(response, "main/home.html", {})
 
 
-def feedback(request):
+def feedback(response):
 
-	if request.method == 'POST':
-		message = request.POST['message']
+	if response.method == 'POST':
+		message = response.POST['message']
 
 		send_mail('Contact Form',
 		 message,
 		 settings.EMAIL_HOST_USER,
 		 ['HikeBuddy100@gmail.com'],
 		 fail_silently=False)
-	return render(request, 'main/thankyou.html')
+	return render(response, 'main/thankyou.html')
 
 def about(response):
     return render(response, "main/about.html", {})
 
 def contact(response):
-    # return render(response, "main/contact.html", {})
-    print("CONTACT")
     return render(response, "main/contact.html", {})
+
+def get_public_ip():
+    import urllib.request
+    external_ip = urllib.request.urlopen('https://ident.me').read().decode('utf8')
+    return external_ip
+
+def get_loc(ip):
+    import geoip2.database
+    reader = geoip2.database.Reader('./GeoLite2-City_20190430/GeoLite2-City.mmdb')
+    response = reader.city(ip)
+    # print(response.country.iso_code)
+    # print(response.country.name)
+    # print(response.country.names['zh-CN'])
+    # print(response.subdivisions.most_specific.name)
+    # print(response.subdivisions.most_specific.iso_code)
+    # print(response.city.name)
+    # print(response.postal.code)
+    # print(response.location.latitude)
+    # print(response.location.longitude)
+    return response.country.name
