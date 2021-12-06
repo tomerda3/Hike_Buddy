@@ -22,6 +22,18 @@
 			<td>Email address:&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			<td>{{user.email}}</td>
 		</tr>
+		{% if user.first_name %}
+		<tr>
+			<td>First Name:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td>{{user.first_name}}</td>
+		</tr>
+		{% endif %}
+		{% if user.last_name %}
+		<tr>
+			<td>Last Name:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td>{{user.last_name}}</td>
+		</tr>
+		{% endif %}
 		<tr>
 			<td>Phone number:&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			<td>
