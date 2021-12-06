@@ -24,5 +24,4 @@ def signup(response):
             return redirect("/login/")
     else:
         form = RegisterForm()
-        # return redirect("/login/")
     return render(response, "registry/signup.html", {"form":form})
