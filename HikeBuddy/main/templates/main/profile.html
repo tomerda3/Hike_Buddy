@@ -69,11 +69,17 @@
 	{% if user.is_active %}
 	<p>Account is active</p>
 	
-	<form method="POST" action="/active/" class="form-group">
+	<form method="POST" action="/areyousure/" class="form-group">
+		{% csrf_token %}
+		{{form|crispy}}
+		<button class="btn btn-warning">Make my account inactive</button>
+	</form>
+
+	<!-- <form method="POST" action="/active/" class="form-group">
 		{% csrf_token %}
 		{{form|crispy}}
 		<button type="submit" class="btn btn-warning">Make my account inactive</button>
-	</form>
+	</form> -->
 	
 	{% else %}
 	<p>Account is inactive</p>
