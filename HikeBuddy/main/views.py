@@ -41,6 +41,9 @@ def about(response):
 def contact(response):
     return render(response, "main/contact.html", {})
 
+def areyousure(response):
+    return render(response, "main/areyousure.html", {})
+
 def get_public_ip():
     import urllib.request
     external_ip = urllib.request.urlopen('https://ident.me').read().decode('utf8')
