@@ -18,9 +18,7 @@ def profile(response):
         'ip': public_ip,
         'loc': loc,
         'phone': phone,
-        # 'profile_pic': str(picture)[20::]
         'profile_pic': str(picture)[24::]
-        # 'profile_pic': str(picture)[33::]
         })
 
 
