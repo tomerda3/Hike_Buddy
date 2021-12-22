@@ -4,7 +4,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 
 # Create your views here.
-
+from registry.models import UserProfileInfo
 def home(response):
     return render(response, "main/home.html", {})
 
@@ -12,7 +12,16 @@ def home(response):
 def profile(response):
     public_ip = get_public_ip()
     loc = get_loc(public_ip)
-    return render(response, "main/profile.html", {'ip': public_ip, 'loc': loc})
+    phone = UserProfileInfo.objects.get(user=response.user).phone
+    picture = UserProfileInfo.objects.get(user=response.user).picture
+    return render(response, "main/profile.html", {
+        'ip': public_ip,
+        'loc': loc,
+        'phone': phone,
+        # 'profile_pic': str(picture)[20::]
+        'profile_pic': str(picture)[24::]
+        # 'profile_pic': str(picture)[33::]
+        })
 
 
 def toggle_active(response):
@@ -24,10 +33,8 @@ def toggle_active(response):
 
 
 def feedback(response):
-
 	if response.method == 'POST':
 		message = response.POST['message']
-
 		send_mail('Contact Form',
 		 message,
 		 settings.EMAIL_HOST_USER,
@@ -40,6 +47,9 @@ def about(response):
 
 def contact(response):
     return render(response, "main/contact.html", {})
+
+def planroute(response):
+    return render(response, "main/planroute.html", {})
 
 def areyousure(response):
     return render(response, "main/areyousure.html", {})
