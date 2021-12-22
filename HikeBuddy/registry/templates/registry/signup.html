@@ -5,10 +5,27 @@
 
 {% block content %}
 <center><h1>Sign Up</h1></center>
-
-	<form method="POST" action="/signup/" class="form-group">
+	
+	<!-- <form method="POST" action="/signup/" class="form-group">
 		{% csrf_token %}
 		{{form|crispy}}
 		<button type="submit" class="btn btn-primary">Sign Up</button>
+	</form> -->
+	
+	<form method="POST" action="/signup/" class="form-group">
+		{% csrf_token %}
+		{{form|crispy}}
+		<!-- {{user_form.as_p}}
+		{{profile_form.as_p}} -->
+		{{user_form.username|as_crispy_field}}
+		{{user_form.first_name|as_crispy_field}}
+		{{user_form.last_name|as_crispy_field}}
+		{{user_form.email|as_crispy_field}}
+		{{profile_form.phone|as_crispy_field}}
+		{{user_form.password|as_crispy_field}}
+		{{user_form.password_confirm|as_crispy_field}}
+		{{profile_form.userType|as_crispy_field}}
+		{{profile_form.picture|as_crispy_field}}
+		<button type="submit" class="btn btn-primary" value="Sign Up">Sign Up</button>
 	</form>
 {% endblock %}
