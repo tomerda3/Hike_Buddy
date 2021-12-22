@@ -10,7 +10,7 @@ class UserProfileInfo(models.Model):
     # additional:
     userType = forms.CharField(label='User type', max_length=10, required=True)
     phone = models.CharField(max_length=10, default=None,)
-    picture = models.ImageField(upload_to='profile_pics', blank=True)
+    picture = models.ImageField(upload_to='main\\media\\profile_pics', blank=True)
 
     def __str__(self):
         return self.user.username

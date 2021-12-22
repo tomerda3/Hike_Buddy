@@ -13,7 +13,15 @@ def profile(response):
     public_ip = get_public_ip()
     loc = get_loc(public_ip)
     phone = UserProfileInfo.objects.get(user=response.user).phone
-    return render(response, "main/profile.html", {'ip': public_ip, 'loc': loc, 'phone':phone})
+    picture = UserProfileInfo.objects.get(user=response.user).picture
+    return render(response, "main/profile.html", {
+        'ip': public_ip,
+        'loc': loc,
+        'phone': phone,
+        # 'profile_pic': str(picture)[20::]
+        'profile_pic': str(picture)[24::]
+        # 'profile_pic': str(picture)[33::]
+        })
 
 
 def toggle_active(response):
@@ -39,6 +47,9 @@ def about(response):
 
 def contact(response):
     return render(response, "main/contact.html", {})
+
+def planroute(response):
+    return render(response, "main/planroute.html", {})
 
 def areyousure(response):
     return render(response, "main/areyousure.html", {})

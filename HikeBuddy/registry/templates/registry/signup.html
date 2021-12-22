@@ -6,11 +6,9 @@
 {% block content %}
 <center><h1>Sign Up</h1></center>
 	
-	<form method="POST" action="/signup/" class="form-group">
+<form method="POST" action="/signup/" class="form-group" enctype="multipart/form-data">
 		{% csrf_token %}
 		{{form|crispy}}
-		<!-- {{user_form.as_p}}
-		{{profile_form.as_p}} -->
 		{{user_form.username|as_crispy_field}}
 		{{user_form.first_name|as_crispy_field}}
 		{{user_form.last_name|as_crispy_field}}

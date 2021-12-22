@@ -13,6 +13,9 @@
 	<a href="/login/"><p>Login</p></a>
 	
 {% else %}
+	{% if profile_pic %}
+		<center>{{profile_pic}}</center>
+	{% endif %}
 	<table>
 		<tr>
 			<td>Username:&nbsp;&nbsp;&nbsp;&nbsp;</td>

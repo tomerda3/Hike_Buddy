@@ -24,11 +24,11 @@ def signup(response):
 
             profile.phone = profile_form.cleaned_data['phone']
             profile.save()
-            print(profile.phone)
-
-
+        
             if 'picture' in response.FILES:
-                profile.profile_pic = response.FILES['picture']
+                print('True')
+                profile.picture = response.FILES['picture']
+            else: print('False')
 
             profile.save()
 

@@ -8,7 +8,5 @@ path("profile/", views.profile, name="profile"),
 path("contact/", views.contact, name="contact"),
 path("about/", views.about, name="about"),
 path("areyousure/", views.areyousure, name="areyousure"),
-
-# path("home/", views.home, name="home"),
-# path("<str:name>", views.index, name="name"),
+path("planroute/", views.planroute, name="planroute"),
 ]
