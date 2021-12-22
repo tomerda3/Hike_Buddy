@@ -26,9 +26,7 @@ def signup(response):
             profile.save()
         
             if 'picture' in response.FILES:
-                print('True')
                 profile.picture = response.FILES['picture']
-            else: print('False')
 
             profile.save()
 
