@@ -13,6 +13,9 @@
 	<a href="/login/"><p>Login</p></a>
 	
 {% else %}
+	{% if profile_pic %}
+		<center>{{profile_pic}}</center>
+	{% endif %}
 	<table>
 		<tr>
 			<td>Username:&nbsp;&nbsp;&nbsp;&nbsp;</td>
@@ -25,22 +28,22 @@
 		{% if user.first_name %}
 		<tr>
 			<td>First Name:&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			<td>{{user.first_name}}</td>
+			<td>{{user.first_name.capitalize}}</td>
 		</tr>
 		{% endif %}
 		{% if user.last_name %}
 		<tr>
 			<td>Last Name:&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			<td>{{user.last_name}}</td>
+			<td>{{user.last_name.capitalize}}</td>
 		</tr>
 		{% endif %}
 		<tr>
 			<td>Phone number:&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			<td>
-			{% if user.phone %}
-			PHONE {{user.phone}}
+			{% if phone %}
+			{{phone}}
 			{% else %}
-			NO PHONE {{user.phone}}
+			NO PHONE {{phone}}
 			{% endif %}
 			</td>
 		</tr>
@@ -74,12 +77,6 @@
 		{{form|crispy}}
 		<button class="btn btn-warning">Make my account inactive</button>
 	</form>
-
-	<!-- <form method="POST" action="/active/" class="form-group">
-		{% csrf_token %}
-		{{form|crispy}}
-		<button type="submit" class="btn btn-warning">Make my account inactive</button>
-	</form> -->
 	
 	{% else %}
 	<p>Account is inactive</p>
