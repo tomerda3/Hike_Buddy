@@ -29,8 +29,8 @@ ModuleNotFoundError: No module named 'crispy_forms'
 pip install django-crispy-forms
 
 במידה ומופיעה שגיאה דומה על אחד מהבאים, יש להתקין גם אותם באותו אופן:
-pip install geoip2
-pip install Pillow
+python -m pip install geoip2
+python -m pip install Pillow
 (או לעקוב אחר ההוראות המופיעות ב-CMD)
 
 	2
