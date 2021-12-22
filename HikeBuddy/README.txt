@@ -28,6 +28,11 @@ ModuleNotFoundError: No module named 'crispy_forms'
 יש לכתוב ב-Command Prompt:
 pip install django-crispy-forms
 
+במידה ומופיעה שגיאה דומה על אחד מהבאים, יש להתקין גם אותם באותו אופן:
+pip install geoip2
+pip install Pillow
+(או לעקוב אחר ההוראות המופיעות ב-CMD)
+
 	2
 במידה ומופיע הכיתוב:
 Watching for file changes with StatReloader
@@ -45,11 +50,3 @@ python manage.py migrate
 לאחר תפעול תקלות יש לנסות להריץ בשנית:
 בשורת הכתובת של תיקיית Hike Buddy יש לכתוב את האותיות cmd ואז ללחוץ על מקש ה-Enter. לאחר מכן ייפתח חלון Command Prompt. בחלון זה יש לכתוב:
 python manage.py runserver
-
-
-
-
-
-
-geoip2
-Pillow
