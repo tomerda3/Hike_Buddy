@@ -24,7 +24,6 @@ class HostForm(forms.Form):
         fields=(
             'name',
             'location',
-            'last_name',
             'fireplace',
             'singleBeds',
             'doubleBeds',
