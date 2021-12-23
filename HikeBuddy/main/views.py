@@ -4,11 +4,11 @@ from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.conf import settings
 from .forms import HostForm
-from django.contrib.auth.models import Group
-from registry.models import UserProfileInfo
-from .models import HostingPlace
 
 # Create your views here.
+from registry.models import UserProfileInfo
+
+from .models import HostingPlace
 
 
 def home(response):
@@ -20,19 +20,11 @@ def profile(response):
     loc = get_loc(public_ip)
     phone = UserProfileInfo.objects.get(user=response.user).phone
     picture = UserProfileInfo.objects.get(user=response.user).picture
-    group = response.user.groups.get(user=response.user)
-    hosting_places = None
-    if group.name == 'host':
-        hosting_places = UserProfileInfo.objects.filter()
-        # hosting_places = []
-        # for hp in UserProfileInfo.objects.get():
-        #     hosting_places.append(hp)
     return render(response, "main/profile.html", {
         'ip': public_ip,
         'loc': loc,
         'phone': phone,
-        'profile_pic': picture,
-        'hosting_places': hosting_places
+        'profile_pic': picture
         })
 
 
@@ -110,7 +102,7 @@ def createHost(response):
             hp.airConditioning = form.cleaned_data["airConditioning"]
             hp.parking = form.cleaned_data["parking"]
             hp.bar = form.cleaned_data["bar"]
-            hp.user = UserProfileInfo.objects.get(user=response.user)
+            # hp.user = UserProfileInfo.objects.get(user=response.user)
             hp.save()
 
             return render(response, "main/profile.html", {})
