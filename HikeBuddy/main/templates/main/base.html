@@ -36,6 +36,10 @@
 							<td><h5><a href="/planroute/">Plan Route</a></h5></td>	
 							<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 							{% endif %}
+							{% if user.is_authenticated and user.groups.get.name == 'host'%}
+							<td><h5><a href="/myhostingplaces/">My Hosting Places</a></h5></td>
+							<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+							{% endif %}
 							<td><h5><a href="/about/">About</a></h5></td>
 							{% if user.is_authenticated and user.is_superuser %}
 							<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
