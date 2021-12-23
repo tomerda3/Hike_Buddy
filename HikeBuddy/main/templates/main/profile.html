@@ -16,7 +16,7 @@
 {% else %}
 	{% if profile_pic %}
 	<center>
-		<img src='{% static "media/profile_pics/ProfilePic.jpg "%}' alt="Avatar" height=180px width=180px>
+		<img src='{% static profile_pic.path %}' alt="Avatar" height=180px width=180px>
 	</center>
 	{% endif %}
 	<table>
