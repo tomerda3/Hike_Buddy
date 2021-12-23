@@ -18,7 +18,6 @@ class HostingPlace(models.Model):
     airConditioning = models.BooleanField(default=False)
     parking = models.BooleanField(default=False)
     bar = models.BooleanField(default=False)
-    picture = models.ImageField(upload_to='static\\media\\host_pics', blank=True)
 
 
 
