@@ -20,11 +20,19 @@ def profile(response):
     loc = get_loc(public_ip)
     phone = UserProfileInfo.objects.get(user=response.user).phone
     picture = UserProfileInfo.objects.get(user=response.user).picture
+    group = response.user.groups.get(user=response.user)
+    hosting_places = None
+    if group.name == 'host':
+        hosting_places = UserProfileInfo.objects.filter()
+        # hosting_places = []
+        # for hp in UserProfileInfo.objects.get():
+        #     hosting_places.append(hp)
     return render(response, "main/profile.html", {
         'ip': public_ip,
         'loc': loc,
         'phone': phone,
-        'profile_pic': picture
+        'profile_pic': picture,
+        'hosting_places': hosting_places,
         })
 
 
