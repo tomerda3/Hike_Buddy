@@ -17,7 +17,6 @@ class HostForm(forms.Form):
     airConditioning = forms.BooleanField(required=False, initial=False, label="Air Conditioning")
     parking = forms.BooleanField(required=False, initial=False, label="Parking")
     bar = forms.BooleanField(required=False, initial=False, label="Bar")
-    picture = models.ImageField(upload_to='picture', blank=True)
 
     class Meta:
         model = HostingPlace
@@ -34,4 +33,4 @@ class HostForm(forms.Form):
             'airConditioning',
             'parking',
             'bar',
-            'picture')
+            )
