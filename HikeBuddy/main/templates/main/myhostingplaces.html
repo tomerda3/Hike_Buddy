@@ -1,0 +1,31 @@
+{% extends 'main/base.html' %}
+
+{% block title %}My Hosting Places{% endblock %}
+
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+{% if user.is_authenticated and user.groups.get.name == 'host'%}
+<center><h1>My Hosting Places</h1></center>
+
+
+	<form method="post" action="/createHost/" class="form-group">
+		{% csrf_token %}
+		{{form}}
+
+
+		<div class="input-group mb-3">
+	  		<div class="input-group-prepend">
+	  		<button name="save" type="submit" class="btn btn-success">Create Hosting Place</button>
+	  		</div>
+		</div>
+	</form>
+
+
+
+
+
+{% endif %}
+
+{% endblock %}
