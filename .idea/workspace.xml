@@ -5,10 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fb5067f3-dbe3-4750-ae10-278354cd6eab" name="Changes" comment="try1">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HikeBuddy/main/templates/main/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/HikeBuddy/main/templates/main/base.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HikeBuddy/main/templates/main/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/HikeBuddy/main/templates/main/profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HikeBuddy/main/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/HikeBuddy/main/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
