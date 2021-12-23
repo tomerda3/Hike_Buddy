@@ -1,0 +1,21 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>pick your op</title>
+</head>
+<body>
+<h1 style="text-align:center;">Trip Planner</h1>
+<p style="text-align:center;">HikeBuddy.</p>
+    <form method="post" action='/trip/' class="form-group">
+    <select onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+    <option value="">Select your options</option>
+    <option value="http://127.0.0.1:8000/plan/">plan by time</option>
+    <option value="http://127.0.0.1:8000/">plan by B</option>
+</select>
+    </form>
+
+</body>
+</html>
