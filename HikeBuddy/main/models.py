@@ -1,5 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+from registry.models import UserProfileInfo
 from django import forms
 
 # Create your models here.
@@ -18,8 +19,7 @@ class HostingPlace(models.Model):
     airConditioning = models.BooleanField(default=False)
     parking = models.BooleanField(default=False)
     bar = models.BooleanField(default=False)
-
-
+    user = models.OneToOneField(UserProfileInfo, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
