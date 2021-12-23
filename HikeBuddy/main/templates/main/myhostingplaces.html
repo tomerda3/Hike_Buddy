@@ -12,7 +12,18 @@
 
 	<form method="post" action="/createHost/" class="form-group">
 		{% csrf_token %}
-		{{form}}
+		{{form.name|as_crispy_field}}
+		{{form.location|as_crispy_field}}
+		{{form.fireplace|as_crispy_field}}
+		{{form.singleBeds|as_crispy_field}}
+		{{form.doubleBeds|as_crispy_field}}
+		{{form.freeWiFi|as_crispy_field}}
+		{{form.showers|as_crispy_field}}
+		{{form.electricity|as_crispy_field}}
+		{{form.breakfast|as_crispy_field}}
+		{{form.airConditioning|as_crispy_field}}
+		{{form.parking|as_crispy_field}}
+		{{form.bar|as_crispy_field}}
 
 
 		<div class="input-group mb-3">
