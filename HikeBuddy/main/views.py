@@ -102,10 +102,9 @@ def createHost(response):
             hp.airConditioning = form.cleaned_data["airConditioning"]
             hp.parking = form.cleaned_data["parking"]
             hp.bar = form.cleaned_data["bar"]
-            # hp.picture
             hp.save()
 
-            return render(response, "main/myhostingplaces.html")
+            return render(response, "main/profile.html", {})
 
     else:
         form = HostForm()
