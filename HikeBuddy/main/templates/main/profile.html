@@ -2,6 +2,11 @@
 
 {% block title %}Profile{% endblock %}
 
+{% block style %}
+	img {
+		border-radius: 50%;
+	}
+{% endblock %}
 
 {% load crispy_forms_tags %}
 {% load static %}
@@ -16,6 +21,7 @@
 {% else %}
 	{% if profile_pic %}
 	<center>
+		<br>
 		<img src='{% static profile_pic.path %}' alt="Avatar" height=180px width=180px>
 	</center>
 	{% endif %}
