@@ -14,16 +14,29 @@
 		{% csrf_token %}
 		{{form.name|as_crispy_field}}
 		{{form.location|as_crispy_field}}
+		<table><tr>
+			<td>
 		{{form.fireplace|as_crispy_field}}
 		{{form.singleBeds|as_crispy_field}}
 		{{form.doubleBeds|as_crispy_field}}
+			</td>
+			<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td>
 		{{form.freeWiFi|as_crispy_field}}
 		{{form.showers|as_crispy_field}}
 		{{form.electricity|as_crispy_field}}
+			</td>
+			<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td>
 		{{form.breakfast|as_crispy_field}}
 		{{form.airConditioning|as_crispy_field}}
 		{{form.parking|as_crispy_field}}
+			</td>
+			<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td>
 		{{form.bar|as_crispy_field}}
+			</td>
+		</tr></table>
 
 
 		<div class="input-group mb-3">
