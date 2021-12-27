@@ -62,7 +62,7 @@
 			<td>User type:&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			<td>{{user.groups.get.name.capitalize}}</td>
 		</tr>
-		{% if user.groups.get.name == 'host' %}
+		{% if user.groups.get.name == 'host' and hosting_places_len > 0 %}
 		<tr>
 			<td>My hosting places:&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			<td>{{hosting_places}}</td>
