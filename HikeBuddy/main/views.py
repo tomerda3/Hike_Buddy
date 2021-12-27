@@ -11,6 +11,10 @@ from registry.models import UserProfileInfo
 from .models import HostingPlace
 
 
+def getUserProfileInfo(usr):
+        upi = UserProfileInfo.objects.get(user=usr)
+        return upi
+
 def home(response):
     return render(response, "main/home.html", {})
 
@@ -22,17 +26,22 @@ def profile(response):
     picture = UserProfileInfo.objects.get(user=response.user).picture
     group = response.user.groups.get(user=response.user)
     hosting_places = None
+    hosting_places_names = []
+    # host_cnt = 0
     if group.name == 'host':
-        hosting_places = UserProfileInfo.objects.filter()
-        # hosting_places = []
-        # for hp in UserProfileInfo.objects.get():
-        #     hosting_places.append(hp)
+        # usr = getUserProfileInfo(response.user)
+        hosting_places = HostingPlace.objects.filter(username = response.user.username)
+
+    if hosting_places:
+        for hp in hosting_places:
+            hosting_places_names.append(hp.name)
+
     return render(response, "main/profile.html", {
         'ip': public_ip,
         'loc': loc,
         'phone': phone,
         'profile_pic': picture,
-        'hosting_places': hosting_places,
+        'hosting_places': str(hosting_places_names)[1:-1:]
         })
 
 
@@ -111,9 +120,10 @@ def createHost(response):
             hp.parking = form.cleaned_data["parking"]
             hp.bar = form.cleaned_data["bar"]
             # hp.user = UserProfileInfo.objects.get(user=response.user)
+            hp.username = response.user.username
             hp.save()
 
-            return render(response, "main/profile.html", {})
+            return home(response)
 
     else:
         form = HostForm()
