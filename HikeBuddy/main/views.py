@@ -27,9 +27,7 @@ def profile(response):
     group = response.user.groups.get(user=response.user)
     hosting_places = None
     hosting_places_names = []
-    # host_cnt = 0
     if group.name == 'host':
-        # usr = getUserProfileInfo(response.user)
         hosting_places = HostingPlace.objects.filter(username = response.user.username)
 
     if hosting_places:
@@ -41,7 +39,8 @@ def profile(response):
         'loc': loc,
         'phone': phone,
         'profile_pic': picture,
-        'hosting_places': str(hosting_places_names)[1:-1:]
+        'hosting_places': str(hosting_places_names)[1:-1:],
+        'hosting_places_len': len(hosting_places_names),
         })
 
 
@@ -119,7 +118,6 @@ def createHost(response):
             hp.airConditioning = form.cleaned_data["airConditioning"]
             hp.parking = form.cleaned_data["parking"]
             hp.bar = form.cleaned_data["bar"]
-            # hp.user = UserProfileInfo.objects.get(user=response.user)
             hp.username = response.user.username
             hp.save()
 
