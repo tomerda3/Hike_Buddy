@@ -19,7 +19,6 @@ class HostingPlace(models.Model):
     airConditioning = models.BooleanField(default=False)
     parking = models.BooleanField(default=False)
     bar = models.BooleanField(default=False)
-    # user = models.OneToOneField(UserProfileInfo, unique=False, on_delete=models.CASCADE)
     username = models.CharField(max_length=200, default='')
 
 
