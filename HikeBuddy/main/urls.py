@@ -11,6 +11,6 @@ path("areyousure/", views.areyousure, name="areyousure"),
 path("planroute/", views.planroute, name="planroute"),
 path("findhost/", views.findhost, name="findhost"),
 path("myhostingplaces/", views.myhostingplaces, name="myhostingplaces"),
-path("creathostingplaces/", views.creathostingplaces, name="creathostingplaces"),
+path("createhostingplace/", views.createhostingplace, name="createhostingplace"),
 path("createHost/", views.createHost, name="createHost"),
 ]
