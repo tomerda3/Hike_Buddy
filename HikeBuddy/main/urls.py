@@ -15,5 +15,5 @@ path("createhostingplace/", views.createhostingplace, name="createhostingplace")
 path("createHost/", views.createHost, name="createHost"),
 path("guideinfo/", views.guideinfo, name="guideinfo"),
 path("createGuide/", views.createGuide, name="createGuide"),
-
+path("host/<hostprofile>", views.host, name="host"),
 ]
