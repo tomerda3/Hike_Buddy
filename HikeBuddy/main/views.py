@@ -87,7 +87,6 @@ def host(response, hostprofile):
         for hp in hosting_places:
             hosting_places_names.append(hp.name)
 
-
     return render(response, "main/host.html", {
         'hostprofileinfo': hostprofileinfo,
         'hostuser': hostuser,
