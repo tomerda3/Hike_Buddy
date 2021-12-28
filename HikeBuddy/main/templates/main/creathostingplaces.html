@@ -1,0 +1,56 @@
+{% extends 'main/base.html' %}
+
+{% block title %}My Hosting Places{% endblock %}
+
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+{% if user.is_authenticated and user.groups.get.name == 'host'%}
+<center><h1>My Hosting Places</h1></center>
+
+
+	<form method="post" action="/createHost/" class="form-group">
+		{% csrf_token %}
+		{{form.name|as_crispy_field}}
+		{{form.location|as_crispy_field}}
+		<table><tr>
+			<td>
+		{{form.fireplace|as_crispy_field}}
+		{{form.singleBeds|as_crispy_field}}
+		{{form.doubleBeds|as_crispy_field}}
+			</td>
+			<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td>
+		{{form.freeWiFi|as_crispy_field}}
+		{{form.showers|as_crispy_field}}
+		{{form.electricity|as_crispy_field}}
+			</td>
+			<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td>
+		{{form.breakfast|as_crispy_field}}
+		{{form.airConditioning|as_crispy_field}}
+		{{form.parking|as_crispy_field}}
+			</td>
+			</tr>
+			<tr>
+			<td>
+		{{form.bar|as_crispy_field}}
+			</td>
+		</tr></table>
+
+
+		<div class="input-group mb-3">
+	  		<div class="input-group-prepend">
+	  		<button name="save" type="submit" class="btn btn-success">Create Hosting Place</button>
+	  		</div>
+		</div>
+	</form>
+
+
+
+
+
+{% endif %}
+
+{% endblock %}
