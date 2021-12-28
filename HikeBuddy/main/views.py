@@ -73,9 +73,27 @@ def planroute(response):
     return render(response, "main/planroute.html", {})
 
 def findhost(response):
-    # hosting_places = HostingPlace.objects.filter(username = response.user.username)
     hosting_places = HostingPlace.objects.filter()
     return render(response, "main/findhost.html", {'hosting_places': hosting_places})
+
+def host(response, hostprofile):
+    hostuser = User.objects.get(username = hostprofile)
+    hostprofileinfo = (UserProfileInfo.objects.filter(user = hostuser))[0]
+    hosting_places = HostingPlace.objects.filter(username = hostuser.username)
+    hosting_places_names = []
+    picture = hostprofileinfo.picture
+
+    if hosting_places:
+        for hp in hosting_places:
+            hosting_places_names.append(hp.name)
+
+
+    return render(response, "main/host.html", {
+        'hostprofileinfo': hostprofileinfo,
+        'hostuser': hostuser,
+        'hosting_places': str(hosting_places_names)[1:-1:],
+        'profile_pic': picture.path
+        })
 
 def areyousure(response):
     return render(response, "main/areyousure.html", {})
@@ -153,8 +171,10 @@ def createGuide(response):
     if response.method == "POST":
         form = GuideForm(response.POST)
         if form.is_valid():
+            print("valid")
             form.location = form.cleaned_data["location"]
             form.cost = form.cleaned_data["cost"]
+
             cg = GuideInfo()
             cg.username = response.user.username
             cg.location = form.location
