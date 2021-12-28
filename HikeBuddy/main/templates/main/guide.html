@@ -1,0 +1,41 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Guide Info{% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+{% if user.is_authenticated and user.groups.get.name == 'guide'%}
+<center><h1>Guide Info</h1></center>
+
+
+	<form method="post" action="/createGuide/" class="form-group">
+		{% csrf_token %}
+		{{form.location|as_crispy_field}}
+		{{form.cost|as_crispy_field}}
+		<table><tr>
+			<td>
+		{{form.carryweapon|as_crispy_field}}
+		<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+		{{form.medic|as_crispy_field}}
+			</td>
+			<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td>
+		{{form.transportationvehicle|as_crispy_field}}
+			</td>
+			<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			</tr>
+		</table>
+
+
+		<div class="input-group mb-3">
+	  		<div class="input-group-prepend">
+	  		<button name="save" type="submit" class="btn btn-success">Create Guide info</button>
+	  		</div>
+		</div>
+	</form>
+
+
+{% endif %}
+
+{% endblock %}
