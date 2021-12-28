@@ -1,0 +1,74 @@
+{% extends 'main/base.html' %}
+
+{% block title %}{{hostuser}}'s Profile{% endblock %}
+
+{% block style %}
+	img {
+		border-radius: 50%;
+		border: 2px solid #3880fa;
+		object-fit: cover;
+	}
+{% endblock %}
+
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+<center><h1>{{hostprofileinfo}}'s Profile</h1></center>
+
+{% if not user.is_authenticated %}
+	<p>Not logged into any account.</p>
+	<a href="/login/"><p>Login</p></a>
+	
+{% else %}
+	{% if profile_pic %}
+	<center>
+		<br>
+		<img src='{% static profile_pic %}' alt="Avatar" height=180px width=180px>
+	</center>
+	{% endif %}
+	<table>
+		<tr>
+			<td>Username:&nbsp;&nbsp;&nbsp;</td>
+			<td>{{hostprofileinfo}}</td>
+		</tr>
+		<tr>
+			<td>Email address:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td>{{hostuser.email}}</td>
+		</tr>
+		{% if hostuser.first_name %}
+		<tr>
+			<td>First Name:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td>{{hostuser.first_name.capitalize}}</td>
+		</tr>
+		{% endif %}
+		{% if hostuser.last_name %}
+		<tr>
+			<td>Last Name:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td>{{hostuser.last_name.capitalize}}</td>
+		</tr>
+		{% endif %}
+		<tr>
+			<td>Phone number:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td>
+			{% if hostprofileinfo.phone %}
+			{{hostprofileinfo.phone}}
+			{% else %}
+			NO PHONE {{phone}}
+			{% endif %}
+			</td>
+		</tr>
+		<tr>
+			<td>User type:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td>{{hostuser.groups.get.name.capitalize}}</td>
+		</tr>
+		<tr>
+			<td>Host's places:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td>{{hosting_places}}</td>
+		</tr>
+		
+	</table>
+	
+{% endif %}
+
+{% endblock %}%}
