@@ -94,6 +94,10 @@ def get_loc(ip):
     # print(response.location.longitude)
     return response.country.name
 
+def creathostingplaces(response):
+    form = HostForm()
+    return render(response, "main/creathostingplaces.html", {"form":form})
+
 def myhostingplaces(response):
     form = HostForm()
     return render(response, "main/myhostingplaces.html", {"form":form})
