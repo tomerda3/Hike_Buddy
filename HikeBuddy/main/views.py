@@ -72,6 +72,11 @@ def contact(response):
 def planroute(response):
     return render(response, "main/planroute.html", {})
 
+def findhost(response):
+    # hosting_places = HostingPlace.objects.filter(username = response.user.username)
+    hosting_places = HostingPlace.objects.filter()
+    return render(response, "main/findhost.html", {'hosting_places': hosting_places})
+
 def areyousure(response):
     return render(response, "main/areyousure.html", {})
 
@@ -95,9 +100,18 @@ def get_loc(ip):
     # print(response.location.longitude)
     return response.country.name
 
-def myhostingplaces(response):
+def createhostingplace(response):
     form = HostForm()
-    return render(response, "main/myhostingplaces.html", {"form":form})
+    return render(response, "main/createhostingplace.html", {"form":form})
+
+def myhostingplaces(response):
+    group = response.user.groups.get(user=response.user)
+    hosting_places = None
+    if group.name == 'host':
+        hosting_places = HostingPlace.objects.filter(username = response.user.username)
+    return render(response, "main/myhostingplaces.html", {
+        'hosting_places': hosting_places,
+        })
 
 def createHost(response):
     if response.method == "POST":
