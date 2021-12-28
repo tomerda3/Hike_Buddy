@@ -44,10 +44,6 @@
 							<td><h5><a href="/myhostingplaces/">My Hosting Places</a></h5></td>
 							<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 							{% endif %}
-							{% if user.is_authenticated and user.groups.get.name == 'guide'%}
-							<td><h5><a href="/guideinfo/">Guide info</a></h5></td>
-							<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-							{% endif %}
 							<td><h5><a href="/about/">About</a></h5></td>
 							{% if user.is_authenticated and user.is_superuser %}
 							<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
