@@ -68,6 +68,12 @@
 			<td>{{hosting_places}}</td>
 		</tr>
 		{% endif %}
+		{% if user.groups.get.name == 'guide' %}
+		<tr>
+			<td>Guide info:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td>{{guideinfo}}</td>
+		</tr>
+		{% endif %}
 		<tr>
 			<td>Location:&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			<td>{{loc}}</td>
