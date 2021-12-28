@@ -71,6 +71,11 @@ def contact(response):
 def planroute(response):
     return render(response, "main/planroute.html", {})
 
+def findhost(response):
+    # hosting_places = HostingPlace.objects.filter(username = response.user.username)
+    hosting_places = HostingPlace.objects.filter()
+    return render(response, "main/findhost.html", {'hosting_places': hosting_places})
+
 def areyousure(response):
     return render(response, "main/areyousure.html", {})
 
