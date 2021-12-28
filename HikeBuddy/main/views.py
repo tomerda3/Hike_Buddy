@@ -4,11 +4,12 @@ from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.conf import settings
 from .forms import HostForm
+from .forms import GuideForm
 
 # Create your views here.
 from registry.models import UserProfileInfo
 
-from .models import HostingPlace
+from .models import HostingPlace, GuideInfo
 
 
 def getUserProfileInfo(usr):
@@ -127,3 +128,34 @@ def createHost(response):
         form = HostForm()
 
     return render(response, "main/myhostingplaces.html", {"form":form})
+
+
+#####################
+def guideinfo(response):
+    form = GuideForm()
+    return render(response, "main/guide.html", {"form":form})
+
+def createGuide(response):
+    if response.method == "POST":
+        form = GuideForm(response.POST)
+        if form.is_valid():
+            print("valid")
+            form.location = form.cleaned_data["location"]
+            form.cost = form.cleaned_data["cost"]
+
+            cg = GuideInfo()
+            cg.username = response.user.username
+            cg.location = form.location
+            cg.cost = form.cost
+            cg.carryweapon = form.cleaned_data["carryweapon"]
+            cg.medic = form.cleaned_data["medic"]
+            cg.transportationvehicle = form.cleaned_data["transportationvehicle"]
+            cg.save()
+
+            return home(response)
+        else: print(form.errors)
+
+    else:
+        form = GuideForm()
+
+    return render(response, "main/home.html", {"form":form})
