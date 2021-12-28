@@ -123,7 +123,9 @@
 			{% for hp in hosting_places %}
 				<tr class="border_bottom">
 					<td>
-						<center>{{hp.name}}</center>
+					<center>
+						<a href="/host/{{hp.username}}">{{ hp.name }}</a>
+					</center>
 					</td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 					<td>
