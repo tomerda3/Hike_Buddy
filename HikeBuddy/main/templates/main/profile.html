@@ -68,12 +68,7 @@
 			<td>{{hosting_places}}</td>
 		</tr>
 		{% endif %}
-		{% if user.groups.get.name == 'guide' %}
-		<tr>
-			<td>Guide info:&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			<td>{{guideinfo}}</td>
-		</tr>
-		{% endif %}
+
 		<tr>
 			<td>Location:&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			<td>{{loc}}</td>
@@ -81,9 +76,21 @@
 		<tr>
 			<td>IP:&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			<td>{{ip}}</td>
-		</tr>
+			{% if user.groups.get.name == 'guide' %}
+		<tr>
+			<td>Guide info:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td>{{guideinfo}}</td>
+			{% endif %}
 	</table>
-	
+
+		{% if user.groups.get.name == 'guide' %}
+		<br>
+		<h5><a href="/guideinfo/">Add guide info</a></h5>
+
+		{% endif %}
+
+
+
 	<br><br><br>
 <center>
 	{% if user.is_active %}
