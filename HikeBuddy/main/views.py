@@ -153,10 +153,8 @@ def createGuide(response):
     if response.method == "POST":
         form = GuideForm(response.POST)
         if form.is_valid():
-            print("valid")
             form.location = form.cleaned_data["location"]
             form.cost = form.cleaned_data["cost"]
-
             cg = GuideInfo()
             cg.username = response.user.username
             cg.location = form.location
