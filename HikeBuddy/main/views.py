@@ -99,13 +99,18 @@ def get_loc(ip):
     # print(response.location.longitude)
     return response.country.name
 
-def creathostingplaces(response):
+def createhostingplace(response):
     form = HostForm()
-    return render(response, "main/creathostingplaces.html", {"form":form})
+    return render(response, "main/createhostingplace.html", {"form":form})
 
 def myhostingplaces(response):
-    form = HostForm()
-    return render(response, "main/myhostingplaces.html", {"form":form})
+    group = response.user.groups.get(user=response.user)
+    hosting_places = None
+    if group.name == 'host':
+        hosting_places = HostingPlace.objects.filter(username = response.user.username)
+    return render(response, "main/myhostingplaces.html", {
+        'hosting_places': hosting_places,
+        })
 
 def createHost(response):
     if response.method == "POST":
