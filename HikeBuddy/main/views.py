@@ -20,7 +20,7 @@ def home(response):
     return render(response, "main/home.html", {})
 
 
-def profile(response):
+def myprofile(response):
     public_ip = get_public_ip()
     loc = get_loc(public_ip)
     phone = UserProfileInfo.objects.get(user=response.user).phone
@@ -35,7 +35,7 @@ def profile(response):
         for hp in hosting_places:
             hosting_places_names.append(hp.name)
 
-    return render(response, "main/profile.html", {
+    return render(response, "main/myprofile.html", {
         'ip': public_ip,
         'loc': loc,
         'phone': phone,
@@ -76,8 +76,8 @@ def findhost(response):
     hosting_places = HostingPlace.objects.filter()
     return render(response, "main/findhost.html", {'hosting_places': hosting_places})
 
-def host(response, hostprofile):
-    hostuser = User.objects.get(username = hostprofile)
+def profile(response, username):
+    hostuser = User.objects.get(username = username)
     hostprofileinfo = (UserProfileInfo.objects.filter(user = hostuser))[0]
     hosting_places = HostingPlace.objects.filter(username = hostuser.username)
     hosting_places_names = []
@@ -87,10 +87,11 @@ def host(response, hostprofile):
         for hp in hosting_places:
             hosting_places_names.append(hp.name)
 
-    return render(response, "main/host.html", {
+    return render(response, "main/profile.html", {
         'hostprofileinfo': hostprofileinfo,
         'hostuser': hostuser,
         'hosting_places': str(hosting_places_names)[1:-1:],
+        'hosting_places_len': len(hosting_places_names),
         'profile_pic': picture.path
         })
 
