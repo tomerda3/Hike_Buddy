@@ -2,6 +2,21 @@
 
 {% block title %}Find Host{% endblock %}
 
+{% block style %}
+	tr.border_bottom td {
+  	border-bottom: 1px solid black;
+	}
+	tr.border_bottom_b td {
+  	border-bottom: 2px solid black;
+	}
+	.blue {
+  	background-color: rgba(85,144,255,.25);
+	}
+	.white {
+  	background-color: rgba(255,255,255,.25);
+	}
+{% endblock %}
+
 {% block content %}
 <center><h1>Find Host</h1></center>
 
@@ -12,7 +27,7 @@
 
 	<center>
 
-<table>
+<!-- <table>
 <tr>
 	<td>Name:&nbsp;&nbsp;&nbsp;&nbsp;</td>
 	<td>Location:&nbsp;&nbsp;&nbsp;&nbsp;</td>
@@ -29,7 +44,154 @@
 
 {% endfor %}
 
-</table>
+</table> -->
+
+<table>
+			<colgroup>
+				<col class="blue" />
+				<col class="white" />
+				<col class="white" />
+				<col class="white" />
+				<col class="blue" />
+				<col class="white" />
+				<col class="white" />
+				<col class="white" />
+				<col class="blue" />
+				<col class="white" />
+				<col class="white" />
+				<col class="white" />
+				<col class="blue" />
+				<col class="white" />
+				<col class="white" />
+				<col class="white" />
+				<col class="blue" />
+				<col class="white" />
+				<col class="white" />
+				<col class="white" />
+				<col class="blue" />
+			</colgroup>
+			<tr class="border_bottom_b">
+					<td>
+						<center><b>Name</b></center>
+					</td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td>
+						<center><b>Location</b></center>
+					</td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td>
+						<center><b>Fireplace</b></center>
+					</td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td>
+						<center><b>Single Beds</b></center>
+					</td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td>
+						<center><b>Double Beds</b></center>
+					</td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td>
+						<center><b>Free WiFi</b></center>
+					</td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td>
+						<center><b>Showers</b></center>
+					</td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td>
+						<center><b>Electricity</b></center>
+					</td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td>
+						<center><b>Breakfast</b></center>
+					</td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td>
+						<center><b>Air Conditioning</b></center>
+					</td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td>
+						<center><b>Parking</b></center>
+					</td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td>
+						<center><b>Bar</b></center>
+					</td>
+				</tr>
+
+			{% for hp in hosting_places %}
+				<tr class="border_bottom">
+					<td>
+						<center>{{hp.name}}</center>
+					</td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td>
+						<center>{{hp.location}}</center>
+					</td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td>
+						{% if hp.fireplace %}
+							<center>✓</center>
+						{% endif %}
+					</td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td>
+						{% if hp.singleBeds %}
+							<center>✓</center>
+						{% endif %}
+					</td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td>
+						{% if hp.doubleBeds %}
+							<center>✓</center>
+						{% endif %}
+					</td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td>
+						{% if hp.freeWiFi %}
+							<center>✓</center>
+						{% endif %}
+					</td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td>
+						{% if hp.showers %}
+							<center>✓</center>
+						{% endif %}
+					</td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td>
+						{% if hp.electricity %}
+							<center>✓</center>
+						{% endif %}
+					</td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td>
+						{% if hp.breakfast %}
+							<center>✓</center>
+						{% endif %}
+					</td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td>
+						{% if hp.airConditioning %}
+							<center>✓</center>
+						{% endif %}
+					</td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td>
+						{% if hp.parking %}
+							<center>✓</center>
+						{% endif %}
+					</td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td>
+						{% if hp.bar %}
+							<center>✓</center>
+						{% endif %}
+					</td>
+				</tr>
+			{% endfor %}
+		</table>
 
 	</center>
 
