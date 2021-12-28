@@ -11,4 +11,7 @@ path("areyousure/", views.areyousure, name="areyousure"),
 path("planroute/", views.planroute, name="planroute"),
 path("myhostingplaces/", views.myhostingplaces, name="myhostingplaces"),
 path("createHost/", views.createHost, name="createHost"),
+path("guideinfo/", views.guideinfo, name="guideinfo"),
+path("createGuide/", views.createGuide, name="createGuide"),
+
 ]
