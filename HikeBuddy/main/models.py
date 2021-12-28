@@ -25,3 +25,16 @@ class HostingPlace(models.Model):
 
     def __str__(self):
         return self.name
+
+class GuideInfo(models.Model):
+
+    location = models.CharField(max_length=200)
+    cost = models.CharField(max_length=200)
+
+    carryweapon = models.BooleanField(default=False)
+    medic = models.BooleanField(default=False)
+    transportationvehicle = models.BooleanField(default=False)
+    username = models.CharField(max_length=200, default='')
+
+    def __str__(self):
+        return self.username
