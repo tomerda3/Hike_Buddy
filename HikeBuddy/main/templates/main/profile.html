@@ -1,6 +1,6 @@
 {% extends 'main/base.html' %}
 
-{% block title %}Profile{% endblock %}
+{% block title %}My Profile{% endblock %}
 
 {% block style %}
 	img {
@@ -14,7 +14,7 @@
 {% load static %}
 
 {% block content %}
-<center><h1>Profile</h1></center>
+<center><h1>My Profile</h1></center>
 
 {% if not user.is_authenticated %}
 	<p>Not logged into any account.</p>
