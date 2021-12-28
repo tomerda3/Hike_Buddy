@@ -18,7 +18,7 @@ from django.urls import path, include
 
 from registry import views as v1
 from main import views as v2
-
+from weather import views as v3
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('signup/', v1.signup, name="sign up"),
@@ -26,5 +26,7 @@ urlpatterns = [
     path('', include("main.urls")),
     path('', include("django.contrib.auth.urls")),
     path('feedback/', v2.feedback, name="feedback"),
+    path('', include('weather.urls')),
+    path('weather/', v3.weather, name="weather"),
 
 ]

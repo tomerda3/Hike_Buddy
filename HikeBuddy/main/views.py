@@ -1,10 +1,20 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.conf import settings
+from .forms import HostForm
 
 # Create your views here.
 from registry.models import UserProfileInfo
+
+from .models import HostingPlace
+
+
+def getUserProfileInfo(usr):
+        upi = UserProfileInfo.objects.get(user=usr)
+        return upi
+
 def home(response):
     return render(response, "main/home.html", {})
 
@@ -14,11 +24,23 @@ def profile(response):
     loc = get_loc(public_ip)
     phone = UserProfileInfo.objects.get(user=response.user).phone
     picture = UserProfileInfo.objects.get(user=response.user).picture
+    group = response.user.groups.get(user=response.user)
+    hosting_places = None
+    hosting_places_names = []
+    if group.name == 'host':
+        hosting_places = HostingPlace.objects.filter(username = response.user.username)
+
+    if hosting_places:
+        for hp in hosting_places:
+            hosting_places_names.append(hp.name)
+
     return render(response, "main/profile.html", {
         'ip': public_ip,
         'loc': loc,
         'phone': phone,
-        'profile_pic': picture
+        'profile_pic': picture,
+        'hosting_places': str(hosting_places_names)[1:-1:],
+        'hosting_places_len': len(hosting_places_names),
         })
 
 
@@ -71,3 +93,37 @@ def get_loc(ip):
     # print(response.location.latitude)
     # print(response.location.longitude)
     return response.country.name
+
+def myhostingplaces(response):
+    form = HostForm()
+    return render(response, "main/myhostingplaces.html", {"form":form})
+
+def createHost(response):
+    if response.method == "POST":
+        form = HostForm(response.POST)
+
+        if form.is_valid():
+            form.name = form.cleaned_data["name"]
+            form.location = form.cleaned_data["location"]
+
+            hp = HostingPlace(name=form.name)
+            hp.location = form.location
+            hp.fireplace = form.cleaned_data["fireplace"]
+            hp.singleBeds = form.cleaned_data["singleBeds"]
+            hp.doubleBeds = form.cleaned_data["doubleBeds"]
+            hp.freeWiFi = form.cleaned_data["freeWiFi"]
+            hp.showers = form.cleaned_data["showers"]
+            hp.electricity = form.cleaned_data["electricity"]
+            hp.breakfast = form.cleaned_data["breakfast"]
+            hp.airConditioning = form.cleaned_data["airConditioning"]
+            hp.parking = form.cleaned_data["parking"]
+            hp.bar = form.cleaned_data["bar"]
+            hp.username = response.user.username
+            hp.save()
+
+            return home(response)
+
+    else:
+        form = HostForm()
+
+    return render(response, "main/myhostingplaces.html", {"form":form})
