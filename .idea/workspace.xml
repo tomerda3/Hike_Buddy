@@ -5,14 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fb5067f3-dbe3-4750-ae10-278354cd6eab" name="Changes" comment="try1">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HikeBuddy/main/templates/main/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/HikeBuddy/main/templates/main/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HikeBuddy/main/templates/main/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/HikeBuddy/main/templates/main/profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HikeBuddy/main/templates/main/creathostingplaces.html" beforeDir="false" afterPath="$PROJECT_DIR$/HikeBuddy/main/templates/main/creathostingplaces.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HikeBuddy/main/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/HikeBuddy/main/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HikeBuddy/main/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/HikeBuddy/main/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -28,9 +35,11 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.tabs" />
   </component>
   <component name="RunManager">
     <configuration name="Main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
