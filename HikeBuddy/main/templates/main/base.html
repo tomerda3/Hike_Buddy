@@ -32,7 +32,7 @@
 						<tr>
 							<td><a href="/"><h5>Home</h5></a></td>
 							<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-							{% if user.is_authenticated and user.groups.get.name == 'traveler'%}
+							{% if user.is_authenticated and user.groups.get.name == 'traveler' or user.is_authenticated and user.groups.get.name == 'guide'%}
 							<td><h5><a href="/planroute/">Plan Route</a></h5></td>	
 							<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 							{% endif %}
