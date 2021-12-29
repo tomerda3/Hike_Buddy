@@ -92,15 +92,21 @@ def planroute(response):
                 trail_data[-1].append(line)
     guideinfo = None
     guide_routes = None
+    show = True
+
     group = response.user.groups.get(user=response.user)
     if group.name == 'guide':
         guideinfo = GuideInfo.objects.filter(username = response.user.username)
-        if str(guideinfo)!="<QuerySet []>": guideinfo=guideinfo[0]
+        if str(guideinfo)!="<QuerySet []>":
+            guideinfo=guideinfo[0]
+        else:
+            show = False
     if guideinfo: guide_routes = guideinfo.routes
 
     return render(response, "main/planroute.html", {
         'trails': trail_data,
         'guide_routes': guide_routes,
+        'show': show
         })
 
 def addroute(response, route):
@@ -233,11 +239,16 @@ def createHost(response):
 
     return render(response, "main/myhostingplaces.html", {"form":form})
 
-
-#####################
 def guideinfo(response):
     form = GuideForm()
-    return render(response, "main/guide.html", {"form":form})
+    
+    show = True
+    group = response.user.groups.get(user=response.user)    
+    if group.name == 'guide':
+        guideinfo = GuideInfo.objects.filter(username = response.user.username)
+        if str(guideinfo) != "<QuerySet []>": show = False
+
+    return render(response, "main/guide.html", {"form":form, "show": show})
 
 def createGuide(response):
     if response.method == "POST":
