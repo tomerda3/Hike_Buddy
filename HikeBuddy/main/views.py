@@ -7,6 +7,8 @@ from .forms import HostForm
 from .forms import GuideForm
 import os
 
+from django.contrib.auth.models import Group
+
 # Create your views here.
 from registry.models import UserProfileInfo
 
@@ -144,12 +146,25 @@ def profile(response, username):
         for hp in hosting_places:
             hosting_places_names.append(hp.name)
 
+    guideinfo = None
+    guide_routes = None
+    group = Group.objects.get(name='guide')
+    guide = group.user_set.get(username=username)
+    if group.name == 'guide':
+        try:
+            guideinfo = GuideInfo.objects.get(username=username)
+        except:
+            guideinfo = None
+        print(guideinfo)
+    #     if str(guideinfo)!="<QuerySet []>": guideinfo=guideinfo[0]
+
     return render(response, "main/profile.html", {
         'hostprofileinfo': hostprofileinfo,
         'hostuser': hostuser,
         'hosting_places': str(hosting_places_names)[1:-1:],
         'hosting_places_len': len(hosting_places_names),
-        'profile_pic': picture
+        'profile_pic': picture,
+        'guideinfo': guideinfo,
         })
 
 def areyousure(response):
