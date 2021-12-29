@@ -124,6 +124,7 @@ def addroute(response, route):
                         guide.routes = guide.routes.replace(string2, "")
                     elif string3 in guide.routes:
                         guide.routes = guide.routes.replace(string3, "")
+                if guide.routes == '': guide.routes = 'None'
         guide.save()
     return myprofile(response)
 
