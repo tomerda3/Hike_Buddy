@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     "crispy_forms",
 	'main.apps.MainConfig',
 	'registry.apps.RegistryConfig',
+    'weather',
+
 ]
 
 MIDDLEWARE = [
