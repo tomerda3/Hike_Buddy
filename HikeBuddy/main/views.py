@@ -38,10 +38,10 @@ def myprofile(response):
         for hp in hosting_places:
             hosting_places_names.append(hp.name)
 
+    guideinfo = None
     if group.name == 'guide':
         guideinfo = GuideInfo.objects.filter(username = response.user.username)
         if str(guideinfo)!="<QuerySet []>": guideinfo=guideinfo[0]
-        else: guideinfo = None
 
     return render(response, "main/myprofile.html", {
         'ip': public_ip,
