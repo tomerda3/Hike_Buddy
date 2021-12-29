@@ -50,15 +50,17 @@
 				<col class="white" />
 				<col class="white" />
 				<col class="blue" />
+				<col class="white" />
 			</colgroup>
 	<tr class="border_bottom_b">
-		<td>Name</td>
+		<td><center><b>Name</b></center></td>
 			<td>&nbsp;&nbsp;&nbsp;</td>
-		<td>Length (km)</td>
+		<td><center><b>Length (km)</b></center></td>
 			<td>&nbsp;&nbsp;&nbsp;</td>
-		<td>Time (days)</td>
+		<td><center><b>Time (days)</b></center></td>
 			<td>&nbsp;&nbsp;&nbsp;</td>
-		<td>Map</td>
+		<td><center><b>Map</b></center></td>
+			<td>&nbsp;&nbsp;&nbsp;</td>
 	</tr>
 
 {% if trails %}
@@ -72,6 +74,7 @@
 		<td><center>{{trail.2}}</center></td>
 			<td>&nbsp;&nbsp;&nbsp;</td>
 		<td><center><a href={{trail.3}} target="map">View</a></center></td>
+			<td>&nbsp;&nbsp;&nbsp;</td>
 	</tr>
 	{% endfor %}
 
