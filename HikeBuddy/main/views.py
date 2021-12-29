@@ -102,9 +102,10 @@ def addroute(response, route):
         else:
             if str(route) not in guide.routes:
                 guide.routes += ', ' + str(route)
-            else:
-                pass  # delete route
-            guide.save()
+            else:  # delete route
+                if guide.routes == route:
+                    guide.routes = 'None'
+        guide.save()
     return myprofile(response)
     # print(guide.username)
     # path="static\\trails"
