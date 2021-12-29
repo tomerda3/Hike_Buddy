@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django import forms
 from .models import HostingPlace
+from .models import GuideInfo
 
 
 class HostForm(forms.Form):
@@ -17,14 +18,12 @@ class HostForm(forms.Form):
     airConditioning = forms.BooleanField(required=False, initial=False, label="Air Conditioning")
     parking = forms.BooleanField(required=False, initial=False, label="Parking")
     bar = forms.BooleanField(required=False, initial=False, label="Bar")
-    picture = models.ImageField(upload_to='picture', blank=True)
 
     class Meta:
         model = HostingPlace
         fields=(
             'name',
             'location',
-            'last_name',
             'fireplace',
             'singleBeds',
             'doubleBeds',
@@ -35,4 +34,19 @@ class HostForm(forms.Form):
             'airConditioning',
             'parking',
             'bar',
-            'picture')
+            )
+###############################
+class GuideForm(forms.Form):
+    cost = forms.CharField(max_length=200)
+    carryweapon = forms.BooleanField(required=False, initial=False, label="Carry Weapon")
+    medic = forms.BooleanField(required=False, initial=False, label="Medic")
+    transportationvehicle = forms.BooleanField(required=False, initial=False, label="Transportation Vehicle")
+
+    class Meta:
+        model = GuideInfo
+        fields=(
+            'cost',
+            'carryweapon',
+            'medic',
+            'transportationvehicle',
+            )
