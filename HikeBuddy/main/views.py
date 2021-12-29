@@ -112,27 +112,20 @@ def addroute(response, route):
             if str(route) not in guide.routes:
                 guide.routes += ', ' + str(route)
             else:  # delete route
-                if guide.routes == route:
+                if guide.routes == route:  # single route
                     guide.routes = 'None'
+                else:  # multiple routes
+                    string1 = ", "+route+", "
+                    string2 = route+", "
+                    string3 = ", "+route
+                    if string1 in guide.routes:
+                        guide.routes = guide.routes.replace(string1, ", ")
+                    elif string2 in guide.routes:
+                        guide.routes = guide.routes.replace(string2, "")
+                    elif string3 in guide.routes:
+                        guide.routes = guide.routes.replace(string3, "")
         guide.save()
     return myprofile(response)
-    # print(guide.username)
-    # path="static\\trails"
-    # trails = os.listdir(path)
-    # trail_data = []
-    # for trail in trails:
-    #     trail_data.append([])
-    #     f = open('static\\trails\\'+trail, 'r')
-    #     if f.mode == 'r':
-    #         content = f.read()
-    #         content = content.split('\n')
-    #         for line in content:
-    #             # print(line)
-    #             trail_data[-1].append(line)
-    # print(trail_data)
-    # return render(response, "main/myprofile.html", {
-    #     # 'trails': trail_data
-    #     })
 
 def findhost(response):
     hosting_places = HostingPlace.objects.filter()
