@@ -71,18 +71,6 @@ def contact(response):
     return render(response, "main/contact.html", {})
 
 def planroute(response):
-    # path="static\\trails"
-    # trails = os.listdir(path)
-    # trail_data = []
-    # for trail in trails:
-    #     f = open('static\\trails\\'+trail, 'r')
-    #     if f.mode == 'r':
-    #         content = f.read()
-    #         content = content.split('\n')
-    #         for line in content:
-    #             print(line)
-    # return render(response, "main/planroute.html", {'trails': trails})
-
     path="static\\trails"
     trails = os.listdir(path)
     trail_data = []
