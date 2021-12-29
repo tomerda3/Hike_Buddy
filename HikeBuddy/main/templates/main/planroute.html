@@ -21,6 +21,44 @@
 	.white {
   	background-color: rgba(255,255,255,.25);
 	}
+ #blackout {
+        background: rgba(102, 102, 102, 0.5);
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: none;
+      }
+      #box {
+        width: 500px;
+        height: 1000px;
+        text-align: center;
+        padding: 15px;
+        border: 3px solid #0000cc;
+        border-radius: 10px;
+        color: #0000cc;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+        background: #fff;
+      }
+      #blackout:target {display: block;}
+      .close {
+        display: inline-block;
+        border: 1px solid #0000cc;
+        color: #0000cc;
+        padding: 0 12px;
+        margin: 10px;
+        text-decoration: none;
+        background: #f2f2f2;
+        font-size: 14pt;
+        cursor:pointer;
+      }
+      .close:hover {background: #e6e6ff;}
 {% endblock %}
 
 {% load crispy_forms_tags %}
@@ -87,12 +125,15 @@ You must provide some guide info in order to add routes to your profile.</p>
 			<td>&nbsp;&nbsp;&nbsp;</td>
 		<td><center><b>Map</b></center></td>
 			<td>&nbsp;&nbsp;&nbsp;</td>
+		<td><center><b>weather</b></center></td>
+			<td>&nbsp;&nbsp;&nbsp;</td>
 		{% if user.is_authenticated and user.groups.get.name == 'guide'%}
 			<td><center><b>Add</b></center></td>
 		{% endif %}
 	</tr>
 
 {% if trails %}
+
 
 	{% for trail in trails %}
 	<tr class="border_bottom">
@@ -103,6 +144,18 @@ You must provide some guide info in order to add routes to your profile.</p>
 		<td><center>{{trail.2}}</center></td>
 			<td>&nbsp;&nbsp;&nbsp;</td>
 		<td><center><a href={{trail.3}} target="map">View</a></center></td>
+					<td>&nbsp;&nbsp;&nbsp;</td>
+
+		<div id="blackout">
+     	 <div id="box">
+		 <script src="//rss.bloople.net/?url=https%3A%2F%2Fweather-broker-cdn.api.bbci.co.uk%2Fen%2Fforecast%2Frss%2F3day%2F293397&showtitle=false&type=js"></script><br>
+		  <a href="#"   class="close">Close window</a>
+		  <td><center><a href="#blackout" target="weather">weather</a></center></td>
+
+      </div>
+    </div>
+
+
 			<td>&nbsp;&nbsp;&nbsp;</td>
 		{% if user.is_authenticated and user.groups.get.name == 'guide'%}
 			<td><center>
@@ -133,7 +186,8 @@ You must provide some guide info in order to add routes to your profile.</p>
 <br><br><br><br><br><br>
 
 <h3>Warnings:</h3>
-<script src="//rss.bloople.net/?url=https%3A%2F%2Fims.gov.il%2Fsites%2Fdefault%2Ffiles%2Fims_data%2Frss%2Falert%2FrssAlert_general_country_en.xml&showtitle=false&type=js"></script>
+
+
 
 
 </center>
