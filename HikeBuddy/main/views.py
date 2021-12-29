@@ -138,6 +138,7 @@ def profile(response, username):
     hosting_places = HostingPlace.objects.filter(username = hostuser.username)
     hosting_places_names = []
     picture = hostprofileinfo.picture
+    if picture: picture = picture.path
 
     if hosting_places:
         for hp in hosting_places:
@@ -148,7 +149,7 @@ def profile(response, username):
         'hostuser': hostuser,
         'hosting_places': str(hosting_places_names)[1:-1:],
         'hosting_places_len': len(hosting_places_names),
-        'profile_pic': picture.path
+        'profile_pic': picture
         })
 
 def areyousure(response):
