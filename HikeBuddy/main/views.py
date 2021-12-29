@@ -5,6 +5,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from .forms import HostForm
 from .forms import GuideForm
+import os
 
 # Create your views here.
 from registry.models import UserProfileInfo
@@ -70,7 +71,32 @@ def contact(response):
     return render(response, "main/contact.html", {})
 
 def planroute(response):
-    return render(response, "main/planroute.html", {})
+    # path="static\\trails"
+    # trails = os.listdir(path)
+    # trail_data = []
+    # for trail in trails:
+    #     f = open('static\\trails\\'+trail, 'r')
+    #     if f.mode == 'r':
+    #         content = f.read()
+    #         content = content.split('\n')
+    #         for line in content:
+    #             print(line)
+    # return render(response, "main/planroute.html", {'trails': trails})
+
+    path="static\\trails"
+    trails = os.listdir(path)
+    trail_data = []
+    for trail in trails:
+        trail_data.append([])
+        f = open('static\\trails\\'+trail, 'r')
+        if f.mode == 'r':
+            content = f.read()
+            content = content.split('\n')
+            for line in content:
+                # print(line)
+                trail_data[-1].append(line)
+    print(trail_data)
+    return render(response, "main/planroute.html", {'trails': trail_data})
 
 def findhost(response):
     hosting_places = HostingPlace.objects.filter()
