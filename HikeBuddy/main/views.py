@@ -102,7 +102,10 @@ def addroute(response, route):
             if str(route) not in guide.routes:
                 guide.routes += ', ' + str(route)
             else:
-                pass  # delete route
+                if guide.routes == str(route):  # one route
+                    guide.routes = 'None'
+                else:  # multiple routes
+                    pass
         guide.save()
         print(guide.routes)
     return myprofile(response)
