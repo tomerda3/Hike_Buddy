@@ -140,6 +140,10 @@ def findhost(response):
     hosting_places = HostingPlace.objects.filter()
     return render(response, "main/findhost.html", {'hosting_places': hosting_places})
 
+def findguide(response):
+    guides = GuideInfo.objects.filter()
+    return render(response, "main/findguide.html", {'guides': guides})
+
 def profile(response, username):
     hostuser = User.objects.get(username = username)
     hostprofileinfo = (UserProfileInfo.objects.filter(user = hostuser))[0]
