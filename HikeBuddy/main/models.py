@@ -1,5 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+# from registry.models import UserProfileInfo
 from django import forms
 
 # Create your models here.
@@ -18,9 +19,22 @@ class HostingPlace(models.Model):
     airConditioning = models.BooleanField(default=False)
     parking = models.BooleanField(default=False)
     bar = models.BooleanField(default=False)
-    picture = models.ImageField(upload_to='static\\media\\host_pics', blank=True)
+    username = models.CharField(max_length=200, default='')
 
 
 
     def __str__(self):
         return self.name
+
+class GuideInfo(models.Model):
+
+    routes = models.CharField(max_length=1000, default='None')
+    cost = models.CharField(max_length=200)
+
+    carryweapon = models.BooleanField(default=False)
+    medic = models.BooleanField(default=False)
+    transportationvehicle = models.BooleanField(default=False)
+    username = models.CharField(max_length=200, default='')
+
+    def __str__(self):
+        return self.username
