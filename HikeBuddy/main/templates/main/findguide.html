@@ -92,9 +92,8 @@
 					<center>
 						{% for profile in profiles %}
 							{% if profile.user.username == guide.username and profile.picture %}
-							{{profile.picture}}<br>
 								<a href="/profile/{{guide.username}}">
-								<img src='{% static profile.picture %}' alt="Avatar" height=180px width=180px></a><br>
+								<img src='{% static profile.picture.path %}' alt="Avatar" height=60px width=60px></a><br>
 							{% endif %}
 						{% endfor %}
 						<a href="/profile/{{guide.username}}">{{ guide.username }}</a>
