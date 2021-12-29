@@ -13,17 +13,20 @@
 		{% csrf_token %}
 		{{form.location|as_crispy_field}}
 		{{form.cost|as_crispy_field}}
-		<table><tr>
+		<table>
+		<tr>
 			<td>
-		{{form.carryweapon|as_crispy_field}}
-		<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-		{{form.medic|as_crispy_field}}
+			{{form.carryweapon|as_crispy_field}}
 			</td>
-			<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+				<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			<td>
-		{{form.transportationvehicle|as_crispy_field}}
+			{{form.medic|as_crispy_field}}
 			</td>
-			<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+				<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td>
+			{{form.transportationvehicle|as_crispy_field}}
+			</td>
+				<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			</tr>
 		</table>
 
