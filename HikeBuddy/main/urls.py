@@ -16,4 +16,5 @@ path("guideinfo/", views.guideinfo, name="guideinfo"),
 path("createGuide/", views.createGuide, name="createGuide"),
 path("profile/<username>", views.profile, name="profile"),
 path("profile/", views.myprofile, name="myprofile"),
+path("addroute/<route>", views.addroute, name="addroute"),
 ]
