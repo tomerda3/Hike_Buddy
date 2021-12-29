@@ -70,10 +70,26 @@
 			<td>{{guideinfo.routes}}</td>
 		</tr>
 		{% endif %}
-		{% if user.groups.get.name == 'guide' %}
+		{% if user.groups.get.name == 'guide' and guideinfo %}
 		<tr>
 			<td>Guide info:&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			<td>{{guideinfo}}</td>
+			<td>
+				{% if guideinfo.carryweapon %}
+				Weapon Carry, 
+				{% endif %}
+				{% if guideinfo.medic %}
+				Medic, 
+				{% endif %}
+				{% if guideinfo.transportationvehicle %}
+				Transportation Vehicle, 
+				{% endif %}
+				Cost: {{guideinfo.cost}}
+			</td>
+		</tr>
+		{% elif user.groups.get.name == 'guide' %}
+		<tr>
+			<td>Guide info:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td><a href='/guideinfo/'>Add guide info</a></td>
 		</tr>
 		{% endif %}
 		<tr>
