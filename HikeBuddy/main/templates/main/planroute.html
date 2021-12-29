@@ -1,6 +1,12 @@
 {% extends 'main/base.html' %}
 
-{% block title %}Plan Route{% endblock %}
+{% block title %}
+	{% if user.is_authenticated and user.groups.get.name == 'guide'%}
+			Add Routes
+	{% else %}
+			Plan Route
+	{% endif %}
+{% endblock %}
 
 {% block style %}
 	tr.border_bottom td {
@@ -17,8 +23,15 @@
 	}
 {% endblock %}
 
+{% load crispy_forms_tags %}
+
 {% block content %}
-<center><h1>Plan Route</h1></center>
+
+{% if user.is_authenticated and user.groups.get.name == 'guide'%}
+	<center><h1>Add Routes</h1></center>
+{% else %}
+	<center><h1>Plan Route</h1></center>
+{% endif %}
 
 {% if not user.is_authenticated %}
 	<a href="/login/"><p>Login</p></a>
@@ -61,6 +74,9 @@
 			<td>&nbsp;&nbsp;&nbsp;</td>
 		<td><center><b>Map</b></center></td>
 			<td>&nbsp;&nbsp;&nbsp;</td>
+		{% if user.is_authenticated and user.groups.get.name == 'guide'%}
+			<td><center><b>Add</b></center></td>
+		{% endif %}
 	</tr>
 
 {% if trails %}
@@ -75,6 +91,16 @@
 			<td>&nbsp;&nbsp;&nbsp;</td>
 		<td><center><a href={{trail.3}} target="map">View</a></center></td>
 			<td>&nbsp;&nbsp;&nbsp;</td>
+		{% if user.is_authenticated and user.groups.get.name == 'guide'%}
+			<td><center>
+				<form method="POST" action="/addroute/{{trail.0}}" class="form-group">
+					{% csrf_token %}
+					{{form|crispy}}
+					<br>
+					<button type="submit" class="btn btn-success">+</button>
+				</form>
+			</center></td>
+		{% endif %}
 	</tr>
 	{% endfor %}
 
