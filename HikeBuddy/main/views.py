@@ -35,12 +35,11 @@ def myprofile(response):
     if hosting_places:
         for hp in hosting_places:
             hosting_places_names.append(hp.name)
-	
-    guideinfo = None
-	
+
     if group.name == 'guide':
         guideinfo = GuideInfo.objects.filter(username = response.user.username)
         if str(guideinfo)!="<QuerySet []>": guideinfo=guideinfo[0]
+        else: guideinfo = None
 
     return render(response, "main/myprofile.html", {
         'ip': public_ip,
@@ -62,14 +61,14 @@ def toggle_active(response):
 
 
 def feedback(response):
-	if response.method == 'POST':
-		message = response.POST['message']
-		send_mail('Contact Form',
-		 message,
-		 settings.EMAIL_HOST_USER,
-		 ['HikeBuddy100@gmail.com'],
-		 fail_silently=False)
-	return render(response, 'main/thankyou.html')
+    if response.method == 'POST':
+        message = response.POST['message']
+        send_mail('Contact Form',
+         message,
+         settings.EMAIL_HOST_USER,
+         ['HikeBuddy100@gmail.com'],
+         fail_silently=False)
+    return render(response, 'main/thankyou.html')
 
 def about(response):
     return render(response, "main/about.html", {})
@@ -97,19 +96,15 @@ def addroute(response, route):
     guide = GuideInfo.objects.filter(username = response.user.username)
     if str(guide)!="<QuerySet []>":
         guide=guide[0]
-        if guide.routes == 'None' or guide.routes == '' or guide.routes == None:
+        print(guide.routes)
+        if guide.routes == 'None':
             guide.routes = str(route)
-            print(guide.routes)
         else:
             if str(route) not in guide.routes:
                 guide.routes += ', ' + str(route)
-            else:  # delete route
-                if guide.routes == str(route):  # one route
-                    guide.routes = 'None'
-                else:  # multiple routes
-                    pass
-        guide.save()
-        print(guide.routes)
+            else:
+                pass  # delete route
+            guide.save()
     return myprofile(response)
     # print(guide.username)
     # path="static\\trails"
@@ -229,16 +224,15 @@ def createGuide(response):
         form = GuideForm(response.POST)
         if form.is_valid():
             print("valid")
-            form.location = form.cleaned_data["location"]
             form.cost = form.cleaned_data["cost"]
 
             cg = GuideInfo()
             cg.username = response.user.username
-            cg.location = form.location
             cg.cost = form.cost
             cg.carryweapon = form.cleaned_data["carryweapon"]
             cg.medic = form.cleaned_data["medic"]
             cg.transportationvehicle = form.cleaned_data["transportationvehicle"]
+            cg.routes = 'None'
             cg.save()
 
             return home(response)
