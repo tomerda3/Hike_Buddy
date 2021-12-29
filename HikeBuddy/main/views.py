@@ -95,15 +95,16 @@ def addroute(response, route):
     guide = GuideInfo.objects.filter(username = response.user.username)
     if str(guide)!="<QuerySet []>":
         guide=guide[0]
-        print(guide.routes)
-        if guide.routes == 'None':
+        if guide.routes == 'None' or guide.routes == '' or guide.routes == None:
             guide.routes = str(route)
+            print(guide.routes)
         else:
             if str(route) not in guide.routes:
                 guide.routes += ', ' + str(route)
             else:
                 pass  # delete route
-            guide.save()
+        guide.save()
+        print(guide.routes)
     return myprofile(response)
     # print(guide.username)
     # path="static\\trails"
