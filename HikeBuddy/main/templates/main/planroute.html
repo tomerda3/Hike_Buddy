@@ -125,10 +125,11 @@ You must provide some guide info in order to add routes to your profile.</p>
 			<td>&nbsp;&nbsp;&nbsp;</td>
 		<td><center><b>Map</b></center></td>
 			<td>&nbsp;&nbsp;&nbsp;</td>
-		<td><center><b>weather</b></center></td>
-			<td>&nbsp;&nbsp;&nbsp;</td>
+		<td><center><b>weather</b></center></td>	
 		{% if user.is_authenticated and user.groups.get.name == 'guide'%}
+				<td>&nbsp;&nbsp;&nbsp;</td>
 			<td><center><b>Add</b></center></td>
+				<td>&nbsp;&nbsp;&nbsp;</td>
 		{% endif %}
 	</tr>
 
@@ -144,20 +145,17 @@ You must provide some guide info in order to add routes to your profile.</p>
 		<td><center>{{trail.2}}</center></td>
 			<td>&nbsp;&nbsp;&nbsp;</td>
 		<td><center><a href={{trail.3}} target="map">View</a></center></td>
-					<td>&nbsp;&nbsp;&nbsp;</td>
+			<td>&nbsp;&nbsp;&nbsp;</td>
 
 		<div id="blackout">
      	 <div id="box">
 		 <script src="//rss.bloople.net/?url=https%3A%2F%2Fweather-broker-cdn.api.bbci.co.uk%2Fen%2Fforecast%2Frss%2F3day%2F293397&showtitle=false&type=js"></script><br>
 		  <a href="#"   class="close">Close window</a>
-		  <td><center><a href="#blackout" target="weather">weather</a></center></td>
-
+		  <td><center><a href="#blackout" target="weather">View</a></center></td>
       </div>
     </div>
-
-
-			<td>&nbsp;&nbsp;&nbsp;</td>
 		{% if user.is_authenticated and user.groups.get.name == 'guide'%}
+		<td>&nbsp;&nbsp;&nbsp;</td>
 			<td><center>
 				<form method="POST" action="/addroute/{{trail.0}}" class="form-group">
 					{% csrf_token %}
@@ -169,6 +167,7 @@ You must provide some guide info in order to add routes to your profile.</p>
 					<button type="submit" class="btn btn-danger">-</button>
 					{% endif %}
 				</form>
+			<td>&nbsp;&nbsp;&nbsp;</td>
 			</center></td>
 		{% endif %}
 	</tr>
@@ -181,14 +180,6 @@ You must provide some guide info in order to add routes to your profile.</p>
 <br>
 
 <iframe name="map" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-
-
-<br><br><br><br><br><br>
-
-<h3>Warnings:</h3>
-
-
-
 
 </center>
 
