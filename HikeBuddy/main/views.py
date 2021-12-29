@@ -134,7 +134,8 @@ def addroute(response, route):
                         guide.routes = guide.routes.replace(string3, "")
                 if guide.routes == '': guide.routes = 'None'
         guide.save()
-    return myprofile(response)
+    return planroute(response)
+    # return myprofile(response)
 
 def findhost(response):
     hosting_places = HostingPlace.objects.filter()
