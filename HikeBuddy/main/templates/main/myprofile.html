@@ -64,7 +64,7 @@
 			<td>{{hosting_places}}</td>
 		</tr>
 		{% endif %}
-		{% if user.groups.get.name == 'guide' and guideinfo.routes != 'None' %}
+		{% if user.groups.get.name == 'guide' and guideinfo and guideinfo.routes != 'None' %}
 		<tr>
 			<td>Routes:&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			<td>{{guideinfo.routes}}</td>
