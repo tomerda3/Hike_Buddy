@@ -101,7 +101,7 @@ def addroute(response, route):
         else:
             if str(route) not in guide.routes:
                 guide.routes += ', ' + str(route)
-            else:
+            else:  # delete route
                 if guide.routes == str(route):  # one route
                     guide.routes = 'None'
                 else:  # multiple routes
