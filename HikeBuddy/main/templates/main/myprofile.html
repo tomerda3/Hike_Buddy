@@ -64,14 +64,16 @@
 			<td>{{hosting_places}}</td>
 		</tr>
 		{% endif %}
+		{% if user.groups.get.name == 'guide' and guideinfo.routes != 'None' %}
+		<tr>
+			<td>Routes:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td>{{guideinfo.routes}}</td>
+		</tr>
+		{% endif %}
 		{% if user.groups.get.name == 'guide' %}
 		<tr>
 			<td>Guide info:&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			{% if not guideinfo %}
-				<a href="/guideinfo/">Add guide info</a>
-			{% else %}
-				<td>{{guideinfo}}</td>
-			{% endif %}
+			<td>{{guideinfo}}</td>
 		</tr>
 		{% endif %}
 		<tr>

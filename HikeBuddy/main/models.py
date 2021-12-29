@@ -28,7 +28,7 @@ class HostingPlace(models.Model):
 
 class GuideInfo(models.Model):
 
-    location = models.CharField(max_length=200)
+    routes = models.CharField(max_length=1000, default='None')
     cost = models.CharField(max_length=200)
 
     carryweapon = models.BooleanField(default=False)

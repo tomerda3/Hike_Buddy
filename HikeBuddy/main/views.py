@@ -36,6 +36,10 @@ def myprofile(response):
         for hp in hosting_places:
             hosting_places_names.append(hp.name)
 
+    if group.name == 'guide':
+        guideinfo = GuideInfo.objects.filter(username = response.user.username)
+        if str(guideinfo)!="<QuerySet []>": guideinfo=guideinfo[0]
+
     return render(response, "main/myprofile.html", {
         'ip': public_ip,
         'loc': loc,
@@ -43,6 +47,7 @@ def myprofile(response):
         'profile_pic': picture,
         'hosting_places': str(hosting_places_names)[1:-1:],
         'hosting_places_len': len(hosting_places_names),
+        'guideinfo': guideinfo,
         })
 
 
@@ -87,7 +92,24 @@ def planroute(response):
     return render(response, "main/planroute.html", {'trails': trail_data})
 
 def addroute(response, route):
-    print(route)
+    guide = GuideInfo.objects.filter(username = response.user.username)
+    if str(guide)!="<QuerySet []>":
+        guide=guide[0]
+        if guide.routes == 'None' or guide.routes == '' or guide.routes == None:
+            guide.routes = str(route)
+            print(guide.routes)
+        else:
+            if str(route) not in guide.routes:
+                guide.routes += ', ' + str(route)
+            else:  # delete route
+                if guide.routes == str(route):  # one route
+                    guide.routes = 'None'
+                else:  # multiple routes
+                    pass
+        guide.save()
+        print(guide.routes)
+    return myprofile(response)
+    # print(guide.username)
     # path="static\\trails"
     # trails = os.listdir(path)
     # trail_data = []
@@ -101,9 +123,9 @@ def addroute(response, route):
     #             # print(line)
     #             trail_data[-1].append(line)
     # print(trail_data)
-    return render(response, "main/myprofile.html", {
-        # 'trails': trail_data
-        })
+    # return render(response, "main/myprofile.html", {
+    #     # 'trails': trail_data
+    #     })
 
 def findhost(response):
     hosting_places = HostingPlace.objects.filter()

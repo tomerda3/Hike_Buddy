@@ -37,7 +37,6 @@ class HostForm(forms.Form):
             )
 ###############################
 class GuideForm(forms.Form):
-    location = forms.CharField(max_length=200)
     cost = forms.CharField(max_length=200)
     carryweapon = forms.BooleanField(required=False, initial=False, label="Carry Weapon")
     medic = forms.BooleanField(required=False, initial=False, label="Medic")
@@ -46,7 +45,6 @@ class GuideForm(forms.Form):
     class Meta:
         model = GuideInfo
         fields=(
-            'location',
             'cost',
             'carryweapon',
             'medic',
