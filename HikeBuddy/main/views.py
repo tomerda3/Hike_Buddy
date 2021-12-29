@@ -266,10 +266,11 @@ def createGuide(response):
             cg.routes = 'None'
             cg.save()
 
-            return home(response)
+            return myprofile(response)
         else: print(form.errors)
 
     else:
         form = GuideForm()
 
-    return render(response, "main/home.html", {"form":form})
+    return myprofile(response)
+    # return render(response, "main/home.html", {"form":form})
