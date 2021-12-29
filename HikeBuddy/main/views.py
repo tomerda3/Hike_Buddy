@@ -87,10 +87,19 @@ def planroute(response):
             content = f.read()
             content = content.split('\n')
             for line in content:
-                # print(line)
                 trail_data[-1].append(line)
-    print(trail_data)
-    return render(response, "main/planroute.html", {'trails': trail_data})
+    guideinfo = None
+    guide_routes = None
+    group = response.user.groups.get(user=response.user)
+    if group.name == 'guide':
+        guideinfo = GuideInfo.objects.filter(username = response.user.username)
+        if str(guideinfo)!="<QuerySet []>": guideinfo=guideinfo[0]
+    if guideinfo: guide_routes = guideinfo.routes
+
+    return render(response, "main/planroute.html", {
+        'trails': trail_data,
+        'guide_routes': guide_routes,
+        })
 
 def addroute(response, route):
     guide = GuideInfo.objects.filter(username = response.user.username)
