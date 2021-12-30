@@ -81,6 +81,8 @@ def planroute(response):
     path="static\\trails"
     trails = os.listdir(path)
     trail_data = []
+    public_ip = get_public_ip()
+    loc = get_loc(public_ip)
     for trail in trails:
         trail_data.append([])
         f = open('static\\trails\\'+trail, 'r')
@@ -103,6 +105,7 @@ def planroute(response):
     if guideinfo: guide_routes = guideinfo.routes
 
     return render(response, "main/planroute.html", {
+        'loc': loc,
         'trails': trail_data,
         'guide_routes': guide_routes,
         'show': show
