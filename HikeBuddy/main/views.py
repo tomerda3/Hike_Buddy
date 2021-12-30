@@ -112,7 +112,7 @@ def addroute(response, route):
     guide = GuideInfo.objects.filter(username = response.user.username)
     if str(guide)!="<QuerySet []>":
         guide=guide[0]
-        print(guide.routes)
+        # print(guide.routes)
         if guide.routes == 'None':
             guide.routes = str(route)
         else:
@@ -180,8 +180,8 @@ def profile(response, username):
             guideinfo = GuideInfo.objects.get(username=username)
         except:
             guideinfo = None
-        print(guideinfo)
-    #     if str(guideinfo)!="<QuerySet []>": guideinfo=guideinfo[0]
+        # print(guideinfo)
+        # if str(guideinfo)!="<QuerySet []>": guideinfo=guideinfo[0]
 
     return render(response, "main/profile.html", {
         'hostprofileinfo': hostprofileinfo,
@@ -273,7 +273,7 @@ def createGuide(response):
     if response.method == "POST":
         form = GuideForm(response.POST)
         if form.is_valid():
-            print("valid")
+            # print("valid")
             form.cost = form.cleaned_data["cost"]
 
             cg = GuideInfo()
