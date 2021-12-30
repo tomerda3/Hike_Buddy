@@ -35,23 +35,35 @@
 	<center>
 
 <form method="GET">
-	Username: 
-	{{myFilter.form.username}}
-	&nbsp;&nbsp;
-	Routes: 
-	{{myFilter.form.routes}}
-	&nbsp;&nbsp;
-	Carries a Weapon: 
-	{{myFilter.form.carryweapon}}
-	&nbsp;&nbsp;
-	Medic: 
-	{{myFilter.form.medic}}
-	&nbsp;&nbsp;
-	Transportation Vehicle: 
-	{{myFilter.form.transportationvehicle}}
-	&nbsp;&nbsp;
-	<button class="btn btn-primary" type="submit">Search</button>
+	<table>
+		<tr>
+			<td>
+			Username:&nbsp;&nbsp;{{myFilter.form.username}}
+			</td>
+				<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td>
+			Routes:&nbsp;&nbsp;{{myFilter.form.routes}}
+			</td>
+				<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td>
+			Carries&nbsp;a&nbsp;Weapon:&nbsp;&nbsp;{{myFilter.form.carryweapon}}
+			</td>
+				<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td>
+			Medic:&nbsp;&nbsp;{{myFilter.form.medic}}
+			</td>
+				<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td>
+			Transportation&nbsp;Vehicle:&nbsp;&nbsp;{{myFilter.form.transportationvehicle}}
+			</td>
+		</tr>
+	</table>
+	
+	<center><button class="btn btn-primary" type="submit">Search</button></center>
+
 </form>
+
+	<br>
 
 <table>
 			<colgroup>
@@ -78,6 +90,7 @@
 				<col class="blue" />
 				<col class="white" />
 			</colgroup>
+
 			<tr class="border_bottom_b">
 					<td>
 						<center><b><a href="?order_by=username">Username</a></b></center>

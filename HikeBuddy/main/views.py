@@ -57,8 +57,7 @@ def toggle_active(response):
     user = User.objects.get(pk=response.user.id)
     user.is_active = not user.is_active
     user.save()
-    redirect("/")
-    return render(response, "main/home.html", {})
+    return home(response)
 
 
 def feedback(response):
@@ -112,7 +111,6 @@ def addroute(response, route):
     guide = GuideInfo.objects.filter(username = response.user.username)
     if str(guide)!="<QuerySet []>":
         guide=guide[0]
-        # print(guide.routes)
         if guide.routes == 'None':
             guide.routes = str(route)
         else:
@@ -142,8 +140,15 @@ def findhost(response):
     myFilter = HostingPlaceFilter(response.GET, queryset=hosting_places)
     hosting_places = myFilter.qs
 
+    active_hosting_places = []
+
+    for hp in hosting_places:
+        user = User.objects.get(username=hp.username)
+        if user.is_active:
+            active_hosting_places.append(hp)
+
     return render(response, "main/findhost.html", {
-        'hosting_places': hosting_places,
+        'hosting_places': active_hosting_places,
         'myFilter': myFilter,
         })
 
@@ -155,8 +160,15 @@ def findguide(response):
     myFilter = GuideInfoFilter(response.GET, queryset=guides)
     guides = myFilter.qs
 
+    active_guides = []
+
+    for guide in guides:
+        user = User.objects.get(username=guide.username)
+        if user.is_active:
+            active_guides.append(guide)
+
     return render(response, "main/findguide.html", {
-        'guides': guides,
+        'guides': active_guides,
         'profiles': profiles,
         'myFilter': myFilter,
         })
@@ -185,8 +197,6 @@ def profile(response, username):
             guideinfo = GuideInfo.objects.get(username=username)
         except:
             guideinfo = None
-        # print(guideinfo)
-        # if str(guideinfo)!="<QuerySet []>": guideinfo=guideinfo[0]
 
     return render(response, "main/profile.html", {
         'hostprofileinfo': hostprofileinfo,
@@ -227,10 +237,20 @@ def createhostingplace(response):
 def myhostingplaces(response):
     group = response.user.groups.get(user=response.user)
     hosting_places = None
+    myFilter = None
+
     if group.name == 'host':
-        hosting_places = HostingPlace.objects.filter(username = response.user.username)
+        # hosting_places = HostingPlace.objects.filter(username = response.user.username)
+
+        order_by = response.GET.get('order_by', 'id')
+        hosting_places = HostingPlace.objects.filter(username = response.user.username).order_by(order_by)
+
+        myFilter = HostingPlaceFilter(response.GET, queryset=hosting_places)
+        hosting_places = myFilter.qs
+
     return render(response, "main/myhostingplaces.html", {
         'hosting_places': hosting_places,
+        'myFilter': myFilter,
         })
 
 def createHost(response):
@@ -278,7 +298,6 @@ def createGuide(response):
     if response.method == "POST":
         form = GuideForm(response.POST)
         if form.is_valid():
-            # print("valid")
             form.cost = form.cleaned_data["cost"]
 
             cg = GuideInfo()
@@ -297,4 +316,3 @@ def createGuide(response):
         form = GuideForm()
 
     return myprofile(response)
-    # return render(response, "main/home.html", {"form":form})
