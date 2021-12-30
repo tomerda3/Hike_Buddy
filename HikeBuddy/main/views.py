@@ -139,7 +139,6 @@ def findhost(response):
     return render(response, "main/findhost.html", {'hosting_places': hosting_places})
 
 def findguide(response):
-    # guides = GuideInfo.objects.filter()
     order_by = response.GET.get('order_by', 'id')
     guides = GuideInfo.objects.all().order_by(order_by)
     profiles = UserProfileInfo.objects.filter()
