@@ -125,7 +125,7 @@ You must provide some guide info in order to add routes to your profile.</p>
 			<td>&nbsp;&nbsp;&nbsp;</td>
 		<td><center><b>Map</b></center></td>
 			<td>&nbsp;&nbsp;&nbsp;</td>
-		<td><center><b>Weather</b></center></td>	
+		<td><center><b>Weather</b></center></td>
 		{% if user.is_authenticated and user.groups.get.name == 'guide'%}
 				<td>&nbsp;&nbsp;&nbsp;</td>
 			<td><center><b>Add</b></center></td>
@@ -184,7 +184,9 @@ You must provide some guide info in order to add routes to your profile.</p>
 <br><br>
 
 </center>
-
+{% if loc == 'Israel'%}
+		<script src="//rss.bloople.net/?url=https%3A%2F%2Ffeeds.meteoalarm.org%2Ffeeds%2Fmeteoalarm-legacy-rss-israel&showtitle=false&type=js"></script>
+	{% endif %}
 
 
 {% endif %}
