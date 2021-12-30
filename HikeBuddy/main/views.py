@@ -36,6 +36,10 @@ def myprofile(response):
         for hp in hosting_places:
             hosting_places_names.append(hp.name)
 
+    if group.name == 'guide':
+        guideinfo = GuideInfo.objects.filter(username = response.user.username)
+        if str(guideinfo)!="<QuerySet []>": guideinfo=guideinfo[0]
+
     return render(response, "main/myprofile.html", {
         'ip': public_ip,
         'loc': loc,
@@ -43,6 +47,7 @@ def myprofile(response):
         'profile_pic': picture,
         'hosting_places': str(hosting_places_names)[1:-1:],
         'hosting_places_len': len(hosting_places_names),
+        'guideinfo': guideinfo,
         })
 
 
@@ -87,7 +92,10 @@ def planroute(response):
     return render(response, "main/planroute.html", {'trails': trail_data})
 
 def addroute(response, route):
+    guide = GuideInfo.objects.filter(username = response.user.username)
+    if str(guide)!="<QuerySet []>": guide=guide[0]
     print(route)
+    # print(guide.username)
     # path="static\\trails"
     # trails = os.listdir(path)
     # trail_data = []
