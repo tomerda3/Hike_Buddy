@@ -50,3 +50,7 @@ python manage.py migrate
 לאחר תפעול תקלות יש לנסות להריץ בשנית:
 בשורת הכתובת של תיקיית Hike Buddy יש לכתוב את האותיות cmd ואז ללחוץ על מקש ה-Enter. לאחר מכן ייפתח חלון Command Prompt. בחלון זה יש לכתוב:
 python manage.py runserver
+
+##############################################################
+לבדיקת טסטים יש לכתוב ב-CMD בתיקיית HikeBuddy:
+python manage.py test main.tests_urls.TestsURL
