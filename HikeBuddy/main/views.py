@@ -227,10 +227,20 @@ def createhostingplace(response):
 def myhostingplaces(response):
     group = response.user.groups.get(user=response.user)
     hosting_places = None
+    myFilter = None
+
     if group.name == 'host':
-        hosting_places = HostingPlace.objects.filter(username = response.user.username)
+        # hosting_places = HostingPlace.objects.filter(username = response.user.username)
+
+        order_by = response.GET.get('order_by', 'id')
+        hosting_places = HostingPlace.objects.filter(username = response.user.username).order_by(order_by)
+
+        myFilter = HostingPlaceFilter(response.GET, queryset=hosting_places)
+        hosting_places = myFilter.qs
+
     return render(response, "main/myhostingplaces.html", {
         'hosting_places': hosting_places,
+        'myFilter': myFilter,
         })
 
 def createHost(response):
