@@ -111,7 +111,6 @@ def addroute(response, route):
     guide = GuideInfo.objects.filter(username = response.user.username)
     if str(guide)!="<QuerySet []>":
         guide=guide[0]
-        # print(guide.routes)
         if guide.routes == 'None':
             guide.routes = str(route)
         else:
@@ -149,7 +148,6 @@ def findhost(response):
             active_hosting_places.append(hp)
 
     return render(response, "main/findhost.html", {
-        # 'hosting_places': hosting_places,
         'hosting_places': active_hosting_places,
         'myFilter': myFilter,
         })
@@ -170,7 +168,6 @@ def findguide(response):
             active_guides.append(guide)
 
     return render(response, "main/findguide.html", {
-        # 'guides': guides,
         'guides': active_guides,
         'profiles': profiles,
         'myFilter': myFilter,
@@ -200,8 +197,6 @@ def profile(response, username):
             guideinfo = GuideInfo.objects.get(username=username)
         except:
             guideinfo = None
-        # print(guideinfo)
-        # if str(guideinfo)!="<QuerySet []>": guideinfo=guideinfo[0]
 
     return render(response, "main/profile.html", {
         'hostprofileinfo': hostprofileinfo,
@@ -303,7 +298,6 @@ def createGuide(response):
     if response.method == "POST":
         form = GuideForm(response.POST)
         if form.is_valid():
-            # print("valid")
             form.cost = form.cleaned_data["cost"]
 
             cg = GuideInfo()
@@ -322,4 +316,3 @@ def createGuide(response):
         form = GuideForm()
 
     return myprofile(response)
-    # return render(response, "main/home.html", {"form":form})
