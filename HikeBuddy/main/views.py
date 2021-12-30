@@ -10,6 +10,8 @@ from django.contrib.auth.models import Group
 from registry.models import UserProfileInfo
 from .models import HostingPlace, GuideInfo
 
+from .filters import HostingPlaceFilter
+
 # Create your views here.
 
 def getUserProfileInfo(usr):
@@ -136,7 +138,14 @@ def addroute(response, route):
 def findhost(response):
     order_by = response.GET.get('order_by', 'id')
     hosting_places = HostingPlace.objects.all().order_by(order_by)
-    return render(response, "main/findhost.html", {'hosting_places': hosting_places})
+
+    myFilter = HostingPlaceFilter(response.GET, queryset=hosting_places)
+    hosting_places = myFilter.qs
+
+    return render(response, "main/findhost.html", {
+        'hosting_places': hosting_places,
+        'myFilter': myFilter,
+        })
 
 def findguide(response):
     order_by = response.GET.get('order_by', 'id')
