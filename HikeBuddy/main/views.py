@@ -6,14 +6,11 @@ from django.conf import settings
 from .forms import HostForm
 from .forms import GuideForm
 import os
-
 from django.contrib.auth.models import Group
-
-# Create your views here.
 from registry.models import UserProfileInfo
-
 from .models import HostingPlace, GuideInfo
 
+# Create your views here.
 
 def getUserProfileInfo(usr):
         upi = UserProfileInfo.objects.get(user=usr)
@@ -142,7 +139,11 @@ def findhost(response):
 
 def findguide(response):
     guides = GuideInfo.objects.filter()
-    return render(response, "main/findguide.html", {'guides': guides})
+    profiles = UserProfileInfo.objects.filter()
+    return render(response, "main/findguide.html", {
+        'guides': guides,
+        'profiles': profiles,
+        })
 
 def profile(response, username):
     hostuser = User.objects.get(username = username)
@@ -159,7 +160,10 @@ def profile(response, username):
     guideinfo = None
     guide_routes = None
     group = Group.objects.get(name='guide')
-    guide = group.user_set.get(username=username)
+    try:
+        guide = group.user_set.get(username=username)
+    except:
+        guide = None
     if group.name == 'guide':
         try:
             guideinfo = GuideInfo.objects.get(username=username)

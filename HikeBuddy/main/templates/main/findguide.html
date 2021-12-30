@@ -15,7 +15,14 @@
 	.white {
   	background-color: rgba(255,255,255,.25);
 	}
+	img {
+		border-radius: 50%;
+		border: 2px solid #3880fa;
+		object-fit: cover;
+	}
 {% endblock %}
+
+{% load static %}
 
 {% block content %}
 <center><h1>Find Guide</h1></center>
@@ -83,6 +90,12 @@
 				<tr class="border_bottom">
 					<td>
 					<center>
+						{% for profile in profiles %}
+							{% if profile.user.username == guide.username and profile.picture %}
+								<a href="/profile/{{guide.username}}">
+								<img src='{% static profile.picture.path %}' alt="Avatar" height=60px width=60px></a><br>
+							{% endif %}
+						{% endfor %}
 						<a href="/profile/{{guide.username}}">{{ guide.username }}</a>
 					</center>
 					</td>
