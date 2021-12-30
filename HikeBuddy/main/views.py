@@ -57,8 +57,7 @@ def toggle_active(response):
     user = User.objects.get(pk=response.user.id)
     user.is_active = not user.is_active
     user.save()
-    redirect("/")
-    return render(response, "main/home.html", {})
+    return home(response)
 
 
 def feedback(response):
@@ -142,8 +141,16 @@ def findhost(response):
     myFilter = HostingPlaceFilter(response.GET, queryset=hosting_places)
     hosting_places = myFilter.qs
 
+    active_hosting_places = []
+
+    for hp in hosting_places:
+        user = User.objects.get(username=hp.username)
+        if user.is_active:
+            active_hosting_places.append(hp)
+
     return render(response, "main/findhost.html", {
-        'hosting_places': hosting_places,
+        # 'hosting_places': hosting_places,
+        'hosting_places': active_hosting_places,
         'myFilter': myFilter,
         })
 
@@ -155,8 +162,16 @@ def findguide(response):
     myFilter = GuideInfoFilter(response.GET, queryset=guides)
     guides = myFilter.qs
 
+    active_guides = []
+
+    for guide in guides:
+        user = User.objects.get(username=guide.username)
+        if user.is_active:
+            active_guides.append(guide)
+
     return render(response, "main/findguide.html", {
-        'guides': guides,
+        # 'guides': guides,
+        'guides': active_guides,
         'profiles': profiles,
         'myFilter': myFilter,
         })
