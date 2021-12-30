@@ -134,13 +134,14 @@ def addroute(response, route):
     return planroute(response)
 
 def findhost(response):
-    hosting_places = HostingPlace.objects.filter()
     order_by = response.GET.get('order_by', 'id')
     hosting_places = HostingPlace.objects.all().order_by(order_by)
     return render(response, "main/findhost.html", {'hosting_places': hosting_places})
 
 def findguide(response):
-    guides = GuideInfo.objects.filter()
+    # guides = GuideInfo.objects.filter()
+    order_by = response.GET.get('order_by', 'id')
+    guides = GuideInfo.objects.all().order_by(order_by)
     profiles = UserProfileInfo.objects.filter()
     return render(response, "main/findguide.html", {
         'guides': guides,
