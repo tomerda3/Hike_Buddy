@@ -10,7 +10,7 @@ from django.contrib.auth.models import Group
 from registry.models import UserProfileInfo
 from .models import HostingPlace, GuideInfo
 
-from .filters import HostingPlaceFilter
+from .filters import HostingPlaceFilter, GuideInfoFilter
 
 # Create your views here.
 
@@ -151,9 +151,14 @@ def findguide(response):
     order_by = response.GET.get('order_by', 'id')
     guides = GuideInfo.objects.all().order_by(order_by)
     profiles = UserProfileInfo.objects.filter()
+
+    myFilter = GuideInfoFilter(response.GET, queryset=guides)
+    guides = myFilter.qs
+
     return render(response, "main/findguide.html", {
         'guides': guides,
         'profiles': profiles,
+        'myFilter': myFilter,
         })
 
 def profile(response, username):
