@@ -51,6 +51,7 @@ INSTALLED_APPS = [
 	'main.apps.MainConfig',
 	'registry.apps.RegistryConfig',
     'weather',
+    'django_filters',
 
 ]
 
