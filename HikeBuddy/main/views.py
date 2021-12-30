@@ -10,7 +10,7 @@ from django.contrib.auth.models import Group
 from registry.models import UserProfileInfo
 from .models import HostingPlace, GuideInfo
 
-from .filters import HostingPlaceFilter
+from .filters import HostingPlaceFilter, GuideInfoFilter
 
 # Create your views here.
 
@@ -112,7 +112,7 @@ def addroute(response, route):
     guide = GuideInfo.objects.filter(username = response.user.username)
     if str(guide)!="<QuerySet []>":
         guide=guide[0]
-        print(guide.routes)
+        # print(guide.routes)
         if guide.routes == 'None':
             guide.routes = str(route)
         else:
@@ -151,9 +151,14 @@ def findguide(response):
     order_by = response.GET.get('order_by', 'id')
     guides = GuideInfo.objects.all().order_by(order_by)
     profiles = UserProfileInfo.objects.filter()
+
+    myFilter = GuideInfoFilter(response.GET, queryset=guides)
+    guides = myFilter.qs
+
     return render(response, "main/findguide.html", {
         'guides': guides,
         'profiles': profiles,
+        'myFilter': myFilter,
         })
 
 def profile(response, username):
@@ -180,8 +185,8 @@ def profile(response, username):
             guideinfo = GuideInfo.objects.get(username=username)
         except:
             guideinfo = None
-        print(guideinfo)
-    #     if str(guideinfo)!="<QuerySet []>": guideinfo=guideinfo[0]
+        # print(guideinfo)
+        # if str(guideinfo)!="<QuerySet []>": guideinfo=guideinfo[0]
 
     return render(response, "main/profile.html", {
         'hostprofileinfo': hostprofileinfo,
@@ -273,7 +278,7 @@ def createGuide(response):
     if response.method == "POST":
         form = GuideForm(response.POST)
         if form.is_valid():
-            print("valid")
+            # print("valid")
             form.cost = form.cleaned_data["cost"]
 
             cg = GuideInfo()
