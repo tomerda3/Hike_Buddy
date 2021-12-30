@@ -1,6 +1,6 @@
 {% extends 'main/base.html' %}
 
-{% block title %}Find Host{% endblock %}
+{% block title %}Find Guide{% endblock %}
 
 {% block style %}
 	tr.border_bottom td {
@@ -15,10 +15,17 @@
 	.white {
   	background-color: rgba(255,255,255,.25);
 	}
+	img {
+		border-radius: 50%;
+		border: 2px solid #3880fa;
+		object-fit: cover;
+	}
 {% endblock %}
 
+{% load static %}
+
 {% block content %}
-<center><h1>Find Host</h1></center>
+<center><h1>Find Guide</h1></center>
 
 {% if not user.is_authenticated %}
 	<a href="/login/"><p>Login</p></a>
@@ -54,128 +61,71 @@
 			</colgroup>
 			<tr class="border_bottom_b">
 					<td>
-						<center><b>Name</b></center>
+						<center><b>Username</b></center>
 					</td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 					<td>
-						<center><b>Location</b></center>
+						<center><b>Routes</b></center>
 					</td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 					<td>
-						<center><b>Fireplace</b></center>
+						<center><b>Carries a Weapon</b></center>
 					</td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 					<td>
-						<center><b>Single Beds</b></center>
+						<center><b>Medic</b></center>
 					</td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 					<td>
-						<center><b>Double Beds</b></center>
+						<center><b>Transportation Vehicle</b></center>
 					</td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 					<td>
-						<center><b>Free WiFi</b></center>
-					</td>
-						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-					<td>
-						<center><b>Showers</b></center>
-					</td>
-						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-					<td>
-						<center><b>Electricity</b></center>
-					</td>
-						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-					<td>
-						<center><b>Breakfast</b></center>
-					</td>
-						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-					<td>
-						<center><b>Air Conditioning</b></center>
-					</td>
-						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-					<td>
-						<center><b>Parking</b></center>
-					</td>
-						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-					<td>
-						<center><b>Bar</b></center>
+						<center><b>Cost</b></center>
 					</td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 				</tr>
 
-			{% for hp in hosting_places %}
+			{% for guide in guides %}
 				<tr class="border_bottom">
 					<td>
 					<center>
-						<a href="/profile/{{hp.username}}">{{ hp.name }}</a>
+						{% for profile in profiles %}
+							{% if profile.user.username == guide.username and profile.picture %}
+								<a href="/profile/{{guide.username}}">
+								<img src='{% static profile.picture.path %}' alt="Avatar" height=60px width=60px></a><br>
+							{% endif %}
+						{% endfor %}
+						<a href="/profile/{{guide.username}}">{{ guide.username }}</a>
 					</center>
 					</td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 					<td>
-						<center>{{hp.location}}</center>
-					</td>
-						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-					<td>
-						{% if hp.fireplace %}
-							<center>✔</center>
-							<!-- <center>❌</center> -->
-							<!-- <center>✖</center> -->
-							<!-- <center>✓</center> -->
+						{% if guide.routes != 'None' %}
+							<center>{{guide.routes}}</center>
 						{% endif %}
 					</td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 					<td>
-						{% if hp.singleBeds %}
+						{% if guide.carryweapon %}
 							<center>✔</center>
 						{% endif %}
 					</td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 					<td>
-						{% if hp.doubleBeds %}
+						{% if guide.medic %}
 							<center>✔</center>
 						{% endif %}
 					</td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 					<td>
-						{% if hp.freeWiFi %}
+						{% if guide.transportationvehicle %}
 							<center>✔</center>
 						{% endif %}
 					</td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 					<td>
-						{% if hp.showers %}
-							<center>✔</center>
-						{% endif %}
-					</td>
-						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-					<td>
-						{% if hp.electricity %}
-							<center>✔</center>
-						{% endif %}
-					</td>
-						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-					<td>
-						{% if hp.breakfast %}
-							<center>✔</center>
-						{% endif %}
-					</td>
-						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-					<td>
-						{% if hp.airConditioning %}
-							<center>✔</center>
-						{% endif %}
-					</td>
-						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-					<td>
-						{% if hp.parking %}
-							<center>✔</center>
-						{% endif %}
-					</td>
-						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-					<td>
-						{% if hp.bar %}
-							<center>✔</center>
-						{% endif %}
+						{{guide.cost}} $
 					</td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 				</tr>

@@ -1,7 +1,7 @@
 {% extends 'main/base.html' %}
 
 {% block title %}
-	{% if user.is_authenticated and user.groups.get.name == 'guide'%}
+	{% if user.is_authenticated and user.groups.get.name == 'guide' %}
 			Add Routes
 	{% else %}
 			Plan Route
@@ -21,13 +21,51 @@
 	.white {
   	background-color: rgba(255,255,255,.25);
 	}
+ #blackout {
+        background: rgba(102, 102, 102, 0.5);
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: none;
+      }
+      #box {
+        width: 500px;
+        height: 1000px;
+        text-align: center;
+        padding: 15px;
+        border: 3px solid #0000cc;
+        border-radius: 10px;
+        color: #0000cc;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+        background: #fff;
+      }
+      #blackout:target {display: block;}
+      .close {
+        display: inline-block;
+        border: 1px solid #0000cc;
+        color: #0000cc;
+        padding: 0 12px;
+        margin: 10px;
+        text-decoration: none;
+        background: #f2f2f2;
+        font-size: 14pt;
+        cursor:pointer;
+      }
+      .close:hover {background: #e6e6ff;}
 {% endblock %}
 
 {% load crispy_forms_tags %}
 
 {% block content %}
 
-{% if user.is_authenticated and user.groups.get.name == 'guide'%}
+{% if user.is_authenticated and user.groups.get.name == 'guide' %}
 	<center><h1>Add Routes</h1></center>
 {% else %}
 	<center><h1>Plan Route</h1></center>
@@ -36,6 +74,19 @@
 {% if not user.is_authenticated %}
 	<a href="/login/"><p>Login</p></a>
 	<p>Not registered yet? <a href="/signup/">Sign up</a></p>
+{% elif not show %}
+
+<p>You haven't added any guide info yet! <br>
+You must provide some guide info in order to add routes to your profile.</p>
+<form method="POST" action="/guideinfo/" class="form-group">
+	{% csrf_token %}
+	{{form|crispy}}
+	<center>
+		<button type="submit" class="btn btn-primary">Add guide info</button>
+	</center>
+</form>
+
+
 {% else %}
 
 <center>
@@ -74,12 +125,16 @@
 			<td>&nbsp;&nbsp;&nbsp;</td>
 		<td><center><b>Map</b></center></td>
 			<td>&nbsp;&nbsp;&nbsp;</td>
+		<td><center><b>Weather</b></center></td>	
 		{% if user.is_authenticated and user.groups.get.name == 'guide'%}
+				<td>&nbsp;&nbsp;&nbsp;</td>
 			<td><center><b>Add</b></center></td>
+				<td>&nbsp;&nbsp;&nbsp;</td>
 		{% endif %}
 	</tr>
 
 {% if trails %}
+
 
 	{% for trail in trails %}
 	<tr class="border_bottom">
@@ -91,14 +146,28 @@
 			<td>&nbsp;&nbsp;&nbsp;</td>
 		<td><center><a href={{trail.3}} target="map">View</a></center></td>
 			<td>&nbsp;&nbsp;&nbsp;</td>
+
+		<div id="blackout">
+     	 <div id="box">
+		 <script src="//rss.bloople.net/?url=https%3A%2F%2Fweather-broker-cdn.api.bbci.co.uk%2Fen%2Fforecast%2Frss%2F3day%2F293397&showtitle=false&type=js"></script><br>
+		  <a href="#"   class="close">Close window</a>
+		  <td><center><a href="#blackout" target="weather">View</a></center></td>
+      </div>
+    </div>
 		{% if user.is_authenticated and user.groups.get.name == 'guide'%}
+		<td>&nbsp;&nbsp;&nbsp;</td>
 			<td><center>
 				<form method="POST" action="/addroute/{{trail.0}}" class="form-group">
 					{% csrf_token %}
 					{{form|crispy}}
 					<br>
+					{% if trail.0 not in guide_routes %}
 					<button type="submit" class="btn btn-success">+</button>
+					{% else %}
+					<button type="submit" class="btn btn-danger">-</button>
+					{% endif %}
 				</form>
+			<td>&nbsp;&nbsp;&nbsp;</td>
 			</center></td>
 		{% endif %}
 	</tr>
@@ -112,37 +181,7 @@
 
 <iframe name="map" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
 
-
-
-
-
-
-
-
-
-
-
-
-<!-- <table>
-<tr>
-<td>
-	<p>An example route is shown on the map:</p>
-<iframe src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d435314.4690617617!2d34.960347048458!3d31.52706320722272!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e2!4m5!1s0x1502666cc7f87775%3A0xaf5e654731053ad8!2z15TXnteb15zXnNeUINeU15DXp9eT157XmdeqINec15TXoNeT16HXlCDXodee15kg16nXntei15XXnywg15fXmdeZ150g16DXl9ee158g15HXmdeQ15zXmdenIDU2LCDXkdeQ16gg16nXkdeiLCA4NDEwMA!3m2!1d31.2499495!2d34.7893119!4m5!1s0x1502a31318d77041%3A0x5db806268c14578f!2z15TXnteb15zXnNeUINeU15DXp9eT157XmdeqINec15TXoNeT16HXlCDXodee15kg16nXntei15XXnyAtINen157XpNeV16Eg15DXqdeT15XXkywg15Yn15HXldeY15nXoNeh16fXmSA4NCwg15DXqdeT15XXkw!3m2!1d31.8073908!2d34.6583101!5e0!3m2!1siw!2sil!4v1640194804063!5m2!1siw!2sil" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d219800.1357861664!2d34.97336989691788!3d30.595124438645065!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1501f25e29394e47%3A0x9059cb1208fb6fa!2z157Xm9eq16kg16jXnteV158!5e0!3m2!1siw!2sil!4v1640723587200!5m2!1siw!2sil" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-</td>
-<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-<td>
-  <p>Costs: $$</p>
-  <p>Difficulty: Medium</p>
-</td>
-</tr>
-</table> -->
-
-<br><br><br><br><br><br>
-
-<h3>Warnings:</h3>
-<script src="//rss.bloople.net/?url=https%3A%2F%2Fims.gov.il%2Fsites%2Fdefault%2Ffiles%2Fims_data%2Frss%2Falert%2FrssAlert_general_country_en.xml&showtitle=false&type=js"></script>
-
+<br><br>
 
 </center>
 

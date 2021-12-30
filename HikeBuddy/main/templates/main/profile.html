@@ -64,6 +64,29 @@
 			<td>{{hosting_places}}</td>
 		</tr>
 		{% endif %}
+		{% if guideinfo %}
+			{% if guideinfo.routes != 'None' %}
+			<tr>
+				<td>Routes:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+				<td>{{guideinfo.routes}}</td>
+			</tr>
+			{% endif %}
+		<tr>
+			<td>Guide info:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td>
+				{% if guideinfo.carryweapon %}
+				Weapon Carry, 
+				{% endif %}
+				{% if guideinfo.medic %}
+				Medic, 
+				{% endif %}
+				{% if guideinfo.transportationvehicle %}
+				Transportation Vehicle, 
+				{% endif %}
+				Cost: {{guideinfo.cost}}
+			</td>
+		</tr>
+		{% endif %}
 		
 	</table>
 	
