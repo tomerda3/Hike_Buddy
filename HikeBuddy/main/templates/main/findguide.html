@@ -1,0 +1,140 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Find Guide{% endblock %}
+
+{% block style %}
+	tr.border_bottom td {
+  	border-bottom: 1px solid black;
+	}
+	tr.border_bottom_b td {
+  	border-bottom: 2px solid black;
+	}
+	.blue {
+  	background-color: rgba(85,144,255,.25);
+	}
+	.white {
+  	background-color: rgba(255,255,255,.25);
+	}
+	img {
+		border-radius: 50%;
+		border: 2px solid #3880fa;
+		object-fit: cover;
+	}
+{% endblock %}
+
+{% load static %}
+
+{% block content %}
+<center><h1>Find Guide</h1></center>
+
+{% if not user.is_authenticated %}
+	<a href="/login/"><p>Login</p></a>
+	<p>Not registered yet? <a href="/signup/">Sign up</a></p>
+{% else %}	
+
+	<center>
+
+<table>
+			<colgroup>
+				<col class="blue" />
+				<col class="white" />
+				<col class="white" />
+				<col class="white" />
+				<col class="blue" />
+				<col class="white" />
+				<col class="white" />
+				<col class="white" />
+				<col class="blue" />
+				<col class="white" />
+				<col class="white" />
+				<col class="white" />
+				<col class="blue" />
+				<col class="white" />
+				<col class="white" />
+				<col class="white" />
+				<col class="blue" />
+				<col class="white" />
+				<col class="white" />
+				<col class="white" />
+				<col class="blue" />
+				<col class="white" />
+			</colgroup>
+			<tr class="border_bottom_b">
+					<td>
+						<center><b><a href="?order_by=username">Username</a></b></center>
+					</td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td>
+						<center><b><a href="?order_by=routes">Routes</a></b></center>
+					</td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td>
+						<center><b><a href="?order_by=-carryweapon">Carries a Weapon</a></b></center>
+					</td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td>
+						<center><b><a href="?order_by=-medic">Medic</a></b></center>
+					</td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td>
+						<center><b><a href="?order_by=-transportationvehicle">Transportation Vehicle</a></b></center>
+					</td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td>
+						<center><b><a href="?order_by=cost">Cost</a></b></center>
+					</td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+				</tr>
+
+			{% for guide in guides %}
+				<tr class="border_bottom">
+					<td>
+					<center>
+						{% for profile in profiles %}
+							{% if profile.user.username == guide.username and profile.picture %}
+								<a href="/profile/{{guide.username}}">
+								<img src='{% static profile.picture.path %}' alt="Avatar" height=60px width=60px></a><br>
+							{% endif %}
+						{% endfor %}
+						<a href="/profile/{{guide.username}}">{{ guide.username }}</a>
+					</center>
+					</td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td>
+						{% if guide.routes != 'None' %}
+							<center>{{guide.routes}}</center>
+						{% endif %}
+					</td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td>
+						{% if guide.carryweapon %}
+							<center>✔</center>
+						{% endif %}
+					</td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td>
+						{% if guide.medic %}
+							<center>✔</center>
+						{% endif %}
+					</td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td>
+						{% if guide.transportationvehicle %}
+							<center>✔</center>
+						{% endif %}
+					</td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td>
+						{{guide.cost}}
+					</td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+				</tr>
+			{% endfor %}
+		</table>
+
+	</center>
+
+
+
+{% endif %}
+{% endblock %}

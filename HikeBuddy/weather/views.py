@@ -16,6 +16,10 @@ def weather(request):
     form = CityForm()
 
     weather_data = []
+    print(form)
+
+    for i in cities:
+        print(cities)
 
     for city in cities:
         city_weather = requests.get(

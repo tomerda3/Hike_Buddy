@@ -1,6 +1,6 @@
 {% extends 'main/base.html' %}
 
-{% block title %}Profile{% endblock %}
+{% block title %}{{hostuser}}'s Profile{% endblock %}
 
 {% block style %}
 	img {
@@ -14,7 +14,7 @@
 {% load static %}
 
 {% block content %}
-<center><h1>Profile</h1></center>
+<center><h1>{{hostprofileinfo}}'s Profile</h1></center>
 
 {% if not user.is_authenticated %}
 	<p>Not logged into any account.</p>
@@ -24,82 +24,71 @@
 	{% if profile_pic %}
 	<center>
 		<br>
-		<img src='{% static profile_pic.path %}' alt="Avatar" height=180px width=180px>
+		<img src='{% static profile_pic %}' alt="Avatar" height=180px width=180px>
 	</center>
 	{% endif %}
 	<table>
 		<tr>
 			<td>Username:&nbsp;&nbsp;&nbsp;</td>
-			<td>{{user.username}}</td>
+			<td>{{hostprofileinfo}}</td>
 		</tr>
 		<tr>
 			<td>Email address:&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			<td>{{user.email}}</td>
+			<td>{{hostuser.email}}</td>
 		</tr>
-		{% if user.first_name %}
+		{% if hostuser.first_name %}
 		<tr>
 			<td>First Name:&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			<td>{{user.first_name.capitalize}}</td>
+			<td>{{hostuser.first_name.capitalize}}</td>
 		</tr>
 		{% endif %}
-		{% if user.last_name %}
+		{% if hostuser.last_name %}
 		<tr>
 			<td>Last Name:&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			<td>{{user.last_name.capitalize}}</td>
+			<td>{{hostuser.last_name.capitalize}}</td>
+		</tr>
+		{% endif %}
+		{% if hostprofileinfo.phone %}
+		<tr>
+			<td>Phone number:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td>{{hostprofileinfo.phone}}</td>
 		</tr>
 		{% endif %}
 		<tr>
-			<td>Phone number:&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			<td>
-			{% if phone %}
-			{{phone}}
-			{% else %}
-			NO PHONE {{phone}}
-			{% endif %}
-			</td>
-		</tr>
-		<tr>
 			<td>User type:&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			<td>{{user.groups.get.name.capitalize}}</td>
+			<td>{{hostuser.groups.get.name.capitalize}}</td>
 		</tr>
-		{% if user.groups.get.name == 'host' and hosting_places_len > 0 %}
+		{% if hostuser.groups.get.name == 'host' and hosting_places_len > 0 %}
 		<tr>
-			<td>My hosting places:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td>Host's places:&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			<td>{{hosting_places}}</td>
 		</tr>
 		{% endif %}
+		{% if guideinfo %}
+			{% if guideinfo.routes != 'None' %}
+			<tr>
+				<td>Routes:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+				<td>{{guideinfo.routes}}</td>
+			</tr>
+			{% endif %}
 		<tr>
-			<td>Location:&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			<td>{{loc}}</td>
+			<td>Guide info:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td>
+				{% if guideinfo.carryweapon %}
+				Weapon Carry, 
+				{% endif %}
+				{% if guideinfo.medic %}
+				Medic, 
+				{% endif %}
+				{% if guideinfo.transportationvehicle %}
+				Transportation Vehicle, 
+				{% endif %}
+				Cost: {{guideinfo.cost}}
+			</td>
 		</tr>
-		<tr>
-			<td>IP:&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			<td>{{ip}}</td>
-		</tr>
+		{% endif %}
+		
 	</table>
-	
-	<br><br><br>
-<center>
-	{% if user.is_active %}
-	<p>Account is active</p>
-	
-	<form method="POST" action="/areyousure/" class="form-group">
-		{% csrf_token %}
-		{{form|crispy}}
-		<button class="btn btn-warning">Make my account inactive</button>
-	</form>
-	
-	{% else %}
-	<p>Account is inactive</p>
-	
-	<form method="POST" action="/active/" class="form-group">
-		{% csrf_token %}
-		{{form|crispy}}
-		<button type="submit" class="btn btn-warning">Make my account active</button>
-	</form>
-	
-	{% endif %}
-</center>
 	
 {% endif %}
 

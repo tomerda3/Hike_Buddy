@@ -27,24 +27,46 @@
 
 	<center>
 
-<!-- <table>
-<tr>
-	<td>Name:&nbsp;&nbsp;&nbsp;&nbsp;</td>
-	<td>Location:&nbsp;&nbsp;&nbsp;&nbsp;</td>
-	<td>Fireplace:&nbsp;&nbsp;&nbsp;&nbsp;</td>
-</tr>
+<form method="GET">
+	Name:
+	{{myFilter.form.name}}
+	&nbsp;&nbsp;
+	Location: 
+	{{myFilter.form.location}}
+	&nbsp;&nbsp;
+	Fireplace: 
+	{{myFilter.form.fireplace}}
+	&nbsp;&nbsp;
+	Single Beds: 
+	{{myFilter.form.singleBeds}}
+	&nbsp;&nbsp;
+	Double Beds: 
+	{{myFilter.form.doubleBeds}}
+	&nbsp;&nbsp;
+	Free WiFi: 
+	{{myFilter.form.freeWiFi}}
+		<br>
+	&nbsp;&nbsp;
+	Showers: 
+	{{myFilter.form.showers}}
+	&nbsp;&nbsp;
+	Electricity: 
+	{{myFilter.form.electricity}}
+	&nbsp;&nbsp;
+	Breakfast: 
+	{{myFilter.form.breakfast}}
+	&nbsp;&nbsp;
+	Air Conditioning: 
+	{{myFilter.form.airConditioning}}
+	&nbsp;&nbsp;
+	Parking: 
+	{{myFilter.form.parking}}
+	&nbsp;&nbsp;
+	Bar: 
+	{{myFilter.form.bar}}
 
-{% for hp in hosting_places %}
-
-<tr>
-	<td>{{hp.name}}&nbsp;&nbsp;&nbsp;&nbsp;</td>
-	<td>{{hp.location}}&nbsp;&nbsp;&nbsp;&nbsp;</td>
-	<td>{{hp.fireplace}}&nbsp;&nbsp;&nbsp;&nbsp;</td>
-</tr>
-
-{% endfor %}
-
-</table> -->
+	<button class="btn btn-primary" type="submit">Search</button>
+</form>
 
 <table>
 			<colgroup>
@@ -69,61 +91,65 @@
 				<col class="white" />
 				<col class="white" />
 				<col class="blue" />
+				<col class="white" />
 			</colgroup>
 			<tr class="border_bottom_b">
 					<td>
-						<center><b>Name</b></center>
+						<center><b><a href="?order_by=name">Name</a></b></center>
 					</td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 					<td>
-						<center><b>Location</b></center>
+						<center><b><a href="?order_by=location">Location</a></b></center>
 					</td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 					<td>
-						<center><b>Fireplace</b></center>
+						<center><b><a href="?order_by=-fireplace">Fireplace</a></b></center>
 					</td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 					<td>
-						<center><b>Single Beds</b></center>
+						<center><b><a href="?order_by=-singleBeds">Single Beds</a></b></center>
 					</td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 					<td>
-						<center><b>Double Beds</b></center>
+						<center><b><a href="?order_by=-doubleBeds">Double Beds</a></b></center>
 					</td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 					<td>
-						<center><b>Free WiFi</b></center>
+						<center><b><a href="?order_by=-freeWiFi">Free WiFi</a></b></center>
 					</td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 					<td>
-						<center><b>Showers</b></center>
+						<center><b><a href="?order_by=-showers">Showers</a></b></center>
 					</td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 					<td>
-						<center><b>Electricity</b></center>
+						<center><b><a href="?order_by=-electricity">Electricity</a></b></center>
 					</td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 					<td>
-						<center><b>Breakfast</b></center>
+						<center><b><a href="?order_by=-breakfast">Breakfast</a></b></center>
 					</td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 					<td>
-						<center><b>Air Conditioning</b></center>
+						<center><b><a href="?order_by=-airConditioning">Air Conditioning</a></b></center>
 					</td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 					<td>
-						<center><b>Parking</b></center>
+						<center><b><a href="?order_by=-parking">Parking</a></b></center>
 					</td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 					<td>
-						<center><b>Bar</b></center>
+						<center><b><a href="?order_by=-bar">Bar</a></b></center>
 					</td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 				</tr>
 
 			{% for hp in hosting_places %}
 				<tr class="border_bottom">
 					<td>
-						<center>{{hp.name}}</center>
+					<center>
+						<a href="/profile/{{hp.username}}">{{ hp.name }}</a>
+					</center>
 					</td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 					<td>
@@ -132,63 +158,67 @@
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 					<td>
 						{% if hp.fireplace %}
-							<center>✓</center>
+							<center>✔</center>
+							<!-- <center>❌</center> -->
+							<!-- <center>✖</center> -->
+							<!-- <center>✓</center> -->
 						{% endif %}
 					</td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 					<td>
 						{% if hp.singleBeds %}
-							<center>✓</center>
+							<center>✔</center>
 						{% endif %}
 					</td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 					<td>
 						{% if hp.doubleBeds %}
-							<center>✓</center>
+							<center>✔</center>
 						{% endif %}
 					</td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 					<td>
 						{% if hp.freeWiFi %}
-							<center>✓</center>
+							<center>✔</center>
 						{% endif %}
 					</td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 					<td>
 						{% if hp.showers %}
-							<center>✓</center>
+							<center>✔</center>
 						{% endif %}
 					</td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 					<td>
 						{% if hp.electricity %}
-							<center>✓</center>
+							<center>✔</center>
 						{% endif %}
 					</td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 					<td>
 						{% if hp.breakfast %}
-							<center>✓</center>
+							<center>✔</center>
 						{% endif %}
 					</td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 					<td>
 						{% if hp.airConditioning %}
-							<center>✓</center>
+							<center>✔</center>
 						{% endif %}
 					</td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 					<td>
 						{% if hp.parking %}
-							<center>✓</center>
+							<center>✔</center>
 						{% endif %}
 					</td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 					<td>
 						{% if hp.bar %}
-							<center>✓</center>
+							<center>✔</center>
 						{% endif %}
 					</td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 				</tr>
 			{% endfor %}
 		</table>

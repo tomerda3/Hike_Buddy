@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django import forms
 from .models import HostingPlace
+from .models import GuideInfo
 
 
 class HostForm(forms.Form):
@@ -33,4 +34,19 @@ class HostForm(forms.Form):
             'airConditioning',
             'parking',
             'bar',
+            )
+###############################
+class GuideForm(forms.Form):
+    cost = forms.FloatField(required=True)
+    carryweapon = forms.BooleanField(required=False, initial=False, label="Carry Weapon")
+    medic = forms.BooleanField(required=False, initial=False, label="Medic")
+    transportationvehicle = forms.BooleanField(required=False, initial=False, label="Transportation Vehicle")
+
+    class Meta:
+        model = GuideInfo
+        fields=(
+            'cost',
+            'carryweapon',
+            'medic',
+            'transportationvehicle',
             )

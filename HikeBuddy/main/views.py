@@ -4,12 +4,15 @@ from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.conf import settings
 from .forms import HostForm
+from .forms import GuideForm
+import os
+from django.contrib.auth.models import Group
+from registry.models import UserProfileInfo
+from .models import HostingPlace, GuideInfo
+
+from .filters import HostingPlaceFilter
 
 # Create your views here.
-from registry.models import UserProfileInfo
-
-from .models import HostingPlace
-
 
 def getUserProfileInfo(usr):
         upi = UserProfileInfo.objects.get(user=usr)
@@ -19,7 +22,7 @@ def home(response):
     return render(response, "main/home.html", {})
 
 
-def profile(response):
+def myprofile(response):
     public_ip = get_public_ip()
     loc = get_loc(public_ip)
     phone = UserProfileInfo.objects.get(user=response.user).phone
@@ -34,13 +37,19 @@ def profile(response):
         for hp in hosting_places:
             hosting_places_names.append(hp.name)
 
-    return render(response, "main/profile.html", {
+    guideinfo = None
+    if group.name == 'guide':
+        guideinfo = GuideInfo.objects.filter(username = response.user.username)
+        if str(guideinfo)!="<QuerySet []>": guideinfo=guideinfo[0]
+
+    return render(response, "main/myprofile.html", {
         'ip': public_ip,
         'loc': loc,
         'phone': phone,
         'profile_pic': picture,
         'hosting_places': str(hosting_places_names)[1:-1:],
         'hosting_places_len': len(hosting_places_names),
+        'guideinfo': guideinfo,
         })
 
 
@@ -53,14 +62,14 @@ def toggle_active(response):
 
 
 def feedback(response):
-	if response.method == 'POST':
-		message = response.POST['message']
-		send_mail('Contact Form',
-		 message,
-		 settings.EMAIL_HOST_USER,
-		 ['HikeBuddy100@gmail.com'],
-		 fail_silently=False)
-	return render(response, 'main/thankyou.html')
+    if response.method == 'POST':
+        message = response.POST['message']
+        send_mail('Contact Form',
+         message,
+         settings.EMAIL_HOST_USER,
+         ['HikeBuddy100@gmail.com'],
+         fail_silently=False)
+    return render(response, 'main/thankyou.html')
 
 def about(response):
     return render(response, "main/about.html", {})
@@ -69,12 +78,119 @@ def contact(response):
     return render(response, "main/contact.html", {})
 
 def planroute(response):
-    return render(response, "main/planroute.html", {})
+    path="static\\trails"
+    trails = os.listdir(path)
+    trail_data = []
+    for trail in trails:
+        trail_data.append([])
+        f = open('static\\trails\\'+trail, 'r')
+        if f.mode == 'r':
+            content = f.read()
+            content = content.split('\n')
+            for line in content:
+                trail_data[-1].append(line)
+    guideinfo = None
+    guide_routes = None
+    show = True
+
+    group = response.user.groups.get(user=response.user)
+    if group.name == 'guide':
+        guideinfo = GuideInfo.objects.filter(username = response.user.username)
+        if str(guideinfo)!="<QuerySet []>":
+            guideinfo=guideinfo[0]
+        else:
+            show = False
+    if guideinfo: guide_routes = guideinfo.routes
+
+    return render(response, "main/planroute.html", {
+        'trails': trail_data,
+        'guide_routes': guide_routes,
+        'show': show
+        })
+
+def addroute(response, route):
+    guide = GuideInfo.objects.filter(username = response.user.username)
+    if str(guide)!="<QuerySet []>":
+        guide=guide[0]
+        print(guide.routes)
+        if guide.routes == 'None':
+            guide.routes = str(route)
+        else:
+            if str(route) not in guide.routes:
+                guide.routes += ', ' + str(route)
+            else:  # delete route
+                if guide.routes == route:  # single route
+                    guide.routes = 'None'
+                else:  # multiple routes
+                    string1 = ", "+route+", "
+                    string2 = route+", "
+                    string3 = ", "+route
+                    if string1 in guide.routes:
+                        guide.routes = guide.routes.replace(string1, ", ")
+                    elif string2 in guide.routes:
+                        guide.routes = guide.routes.replace(string2, "")
+                    elif string3 in guide.routes:
+                        guide.routes = guide.routes.replace(string3, "")
+                if guide.routes == '': guide.routes = 'None'
+        guide.save()
+    return planroute(response)
 
 def findhost(response):
-    # hosting_places = HostingPlace.objects.filter(username = response.user.username)
-    hosting_places = HostingPlace.objects.filter()
-    return render(response, "main/findhost.html", {'hosting_places': hosting_places})
+    order_by = response.GET.get('order_by', 'id')
+    hosting_places = HostingPlace.objects.all().order_by(order_by)
+
+    myFilter = HostingPlaceFilter(response.GET, queryset=hosting_places)
+    hosting_places = myFilter.qs
+
+    return render(response, "main/findhost.html", {
+        'hosting_places': hosting_places,
+        'myFilter': myFilter,
+        })
+
+def findguide(response):
+    order_by = response.GET.get('order_by', 'id')
+    guides = GuideInfo.objects.all().order_by(order_by)
+    profiles = UserProfileInfo.objects.filter()
+    return render(response, "main/findguide.html", {
+        'guides': guides,
+        'profiles': profiles,
+        })
+
+def profile(response, username):
+    hostuser = User.objects.get(username = username)
+    hostprofileinfo = (UserProfileInfo.objects.filter(user = hostuser))[0]
+    hosting_places = HostingPlace.objects.filter(username = hostuser.username)
+    hosting_places_names = []
+    picture = hostprofileinfo.picture
+    if picture: picture = picture.path
+
+    if hosting_places:
+        for hp in hosting_places:
+            hosting_places_names.append(hp.name)
+
+    guideinfo = None
+    guide_routes = None
+    group = Group.objects.get(name='guide')
+    try:
+        guide = group.user_set.get(username=username)
+    except:
+        guide = None
+    if group.name == 'guide':
+        try:
+            guideinfo = GuideInfo.objects.get(username=username)
+        except:
+            guideinfo = None
+        print(guideinfo)
+    #     if str(guideinfo)!="<QuerySet []>": guideinfo=guideinfo[0]
+
+    return render(response, "main/profile.html", {
+        'hostprofileinfo': hostprofileinfo,
+        'hostuser': hostuser,
+        'hosting_places': str(hosting_places_names)[1:-1:],
+        'hosting_places_len': len(hosting_places_names),
+        'profile_pic': picture,
+        'guideinfo': guideinfo,
+        })
 
 def areyousure(response):
     return render(response, "main/areyousure.html", {})
@@ -141,3 +257,39 @@ def createHost(response):
         form = HostForm()
 
     return render(response, "main/myhostingplaces.html", {"form":form})
+
+def guideinfo(response):
+    form = GuideForm()
+    
+    show = True
+    group = response.user.groups.get(user=response.user)    
+    if group.name == 'guide':
+        guideinfo = GuideInfo.objects.filter(username = response.user.username)
+        if str(guideinfo) != "<QuerySet []>": show = False
+
+    return render(response, "main/guide.html", {"form":form, "show": show})
+
+def createGuide(response):
+    if response.method == "POST":
+        form = GuideForm(response.POST)
+        if form.is_valid():
+            print("valid")
+            form.cost = form.cleaned_data["cost"]
+
+            cg = GuideInfo()
+            cg.username = response.user.username
+            cg.cost = form.cost
+            cg.carryweapon = form.cleaned_data["carryweapon"]
+            cg.medic = form.cleaned_data["medic"]
+            cg.transportationvehicle = form.cleaned_data["transportationvehicle"]
+            cg.routes = 'None'
+            cg.save()
+
+            return myprofile(response)
+        else: print(form.errors)
+
+    else:
+        form = GuideForm()
+
+    return myprofile(response)
+    # return render(response, "main/home.html", {"form":form})
