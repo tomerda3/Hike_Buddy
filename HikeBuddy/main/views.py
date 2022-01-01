@@ -258,7 +258,7 @@ def myhostingplaces(response):
 
 def createHost(response):
     if response.method == "POST":
-        form = HostForm(response.POST)
+        form = HostForm(response.POST,response.FILES)
 
         if form.is_valid():
             form.name = form.cleaned_data["name"]
@@ -277,6 +277,11 @@ def createHost(response):
             hp.parking = form.cleaned_data["parking"]
             hp.bar = form.cleaned_data["bar"]
             hp.username = response.user.username
+            hp.save()
+
+            if 'picture' in response.FILES:
+                hp.picture = response.FILES['picture']
+
             hp.save()
 
             return home(response)
