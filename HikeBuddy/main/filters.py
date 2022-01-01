@@ -10,7 +10,7 @@ class HostingPlaceFilter(django_filters.FilterSet):
 	class Meta:
 		model = HostingPlace
 		fields = '__all__'
-		exclude = ['username']
+		exclude = ['username', 'picture']
 
 
 class GuideInfoFilter(django_filters.FilterSet):
