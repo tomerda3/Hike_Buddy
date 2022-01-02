@@ -261,7 +261,7 @@ def myhostingplaces(response):
 
 def createHost(response):
     if response.method == "POST":
-        form = HostForm(response.POST,response.FILES)
+        form = HostForm(response.POST, response.FILES)
 
         if form.is_valid():
             form.name = form.cleaned_data["name"]
@@ -287,11 +287,10 @@ def createHost(response):
 
             hp.save()
 
-            return home(response)
+            return myhostingplaces(response)
 
     else:
         form = HostForm()
-
     return render(response, "main/myhostingplaces.html", {"form":form})
 
 def guideinfo(response):
