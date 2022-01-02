@@ -17,6 +17,8 @@
 	}
 {% endblock %}
 
+{% load static %}
+
 {% block content %}
 <center><h1>Find Host</h1></center>
 
@@ -86,6 +88,10 @@
 
 	<br><br>
 
+	{% if not hosting_places %}
+		No hosting place matched your search.
+	{% else %}
+
 <table>
 			<colgroup>
 				<col class="blue" />
@@ -110,6 +116,9 @@
 				<col class="white" />
 				<col class="blue" />
 				<col class="white" />
+				<col class="white" />
+				<col class="white" />
+				<col class="blue" />
 			</colgroup>
 			<tr class="border_bottom_b">
 					<td>
@@ -160,6 +169,9 @@
 						<center><b><a href="?order_by=-bar">Bar</a></b></center>
 					</td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td>
+						<center><b><a href="?order_by=-bar">Gallery</a></b></center>
+					</td>
 				</tr>
 
 			{% for hp in hosting_places %}
@@ -237,11 +249,22 @@
 						{% endif %}
 					</td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td>
+						{% if hp.picture %}
+						<center>
+							<a target="_blank" href="{% static hp.picture.path %}">View</a>
+						</center>
+						{% else %}
+						<center>None</center>
+						{% endif %}
+					</td>
 				</tr>
 			{% endfor %}
 		</table>
 
-	</center>
+	{% endif %}
+
+</center>
 
 
 
