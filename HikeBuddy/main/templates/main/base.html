@@ -1,3 +1,5 @@
+{% load static %}
+
 <!doctype html>
 <html>
 	<head>
@@ -8,16 +10,54 @@
 		
 		<title>{% block title %}Hike Buddy{% endblock %}</title>
 		<style>{% block style %}{% endblock %}</style>
+		<link rel="stylesheet" href="{% static 'css/styles.css' %}">
 	</head>
 	<body>
 
 	<div id = "content", name = "content">
 		<div class="row justify-content-center">
 			<div class="col-8">
-			
-			<h1 class="mt-2">Hike Buddy</h1>
-			<hr class="mt-0 mb-4">
-			
+				
+			<center>
+					<header class="main-header">
+						<h1 class="header-name header-name-large">Hike Buddy</h1>
+						<nav class="nav main-nav">
+							<ul>
+								<li><a href="/">Home</a></li>
+
+								{% if user.is_authenticated and user.groups.get.name == 'traveler'%}
+								<li><a href="/planroute/">Plan Route</a></li>
+
+								{% endif %}
+								{% if user.is_authenticated and user.groups.get.name == 'guide'%}
+								<li><a href="/planroute/">Add Routes</a></li>
+
+								{% endif %}
+								{% if user.is_authenticated and user.groups.get.name == 'traveler'%}
+								<li><a href="/findhost/">Find Host</a></li>
+
+								{% endif %}
+								{% if user.is_authenticated and user.groups.get.name == 'traveler'%}
+								<li><a href="/findguide/">Find Guide</a></li>
+
+								{% endif %}
+								{% if user.is_authenticated and user.groups.get.name == 'host' and user.is_active%}
+								<li><a href="/myhostingplaces/">My Hosting Places</a></li>
+
+								{% endif %}
+								<li><a href="/about/">About</a></li>
+
+								{% if user.is_authenticated and user.is_superuser %}
+								<li><a href="/admin/">Administration</a></li>
+
+								{% elif user.is_authenticated and user.is_active%}
+								<li><a href="/profile/">My Profile</a></li>
+								{% endif %}
+							</ul>
+						</nav>
+					</header>
+			</center>
+
 			{% if user.is_authenticated %}
 			<p style="text-align:left;">
 				<td><left>Hello {{request.user.username}}</left></td>
@@ -26,43 +66,6 @@
 				</span>
 			</p>
 			{% endif %}
-			
-			<center>
-					<table>
-						<tr>
-							<td><a href="/"><h5>Home</h5></a></td>
-							<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-							{% if user.is_authenticated and user.groups.get.name == 'traveler'%}
-							<td><h5><a href="/planroute/">Plan Route</a></h5></td>
-							<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-							{% endif %}
-							{% if user.is_authenticated and user.groups.get.name == 'guide'%}
-							<td><h5><a href="/planroute/">Add Routes</a></h5></td>
-							<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-							{% endif %}
-							{% if user.is_authenticated and user.groups.get.name == 'traveler'%}
-							<td><h5><a href="/findhost/">Find Host</a></h5></td>
-							<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-							{% endif %}
-							{% if user.is_authenticated and user.groups.get.name == 'traveler'%}
-							<td><h5><a href="/findguide/">Find Guide</a></h5></td>	
-							<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-							{% endif %}
-							{% if user.is_authenticated and user.groups.get.name == 'host' and user.is_active%}
-							<td><h5><a href="/myhostingplaces/">My Hosting Places</a></h5></td>
-							<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-							{% endif %}
-							<td><h5><a href="/about/">About</a></h5></td>
-							{% if user.is_authenticated and user.is_superuser %}
-							<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-							<td><h5><a href="/admin/">Administration</a></h5></td>
-							{% elif user.is_authenticated and user.is_active%}
-							<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-							<td><h5><a href="/profile/">My Profile</a></h5></td>	
-							{% endif %}
-						</tr>
-					</table>
-			</center>
 				
 				{% block content %}
 				{% endblock %}
