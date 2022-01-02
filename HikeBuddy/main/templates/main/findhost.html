@@ -86,6 +86,10 @@
 
 	<br><br>
 
+	{% if not hosting_places %}
+		No hosting place matched your search.
+	{% else %}
+
 <table>
 			<colgroup>
 				<col class="blue" />
@@ -241,7 +245,9 @@
 			{% endfor %}
 		</table>
 
-	</center>
+	{% endif %}
+
+</center>
 
 
 
