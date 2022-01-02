@@ -3,8 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.conf import settings
-from .forms import HostForm
-from .forms import GuideForm
+from .forms import HostForm, GuideForm
 import os
 from django.contrib.auth.models import Group
 from registry.models import UserProfileInfo
@@ -21,11 +20,10 @@ def getUserProfileInfo(usr):
 def home(response):
     return render(response, "main/home.html", {})
 
-
 def myprofile(response):
-    public_ip = get_public_ip()
-    loc = get_loc(public_ip)
-    phone = UserProfileInfo.objects.get(user=response.user).phone
+    # public_ip = get_public_ip()
+    # loc = get_loc(public_ip)
+    profileinfo = UserProfileInfo.objects.get(user=response.user)
     picture = UserProfileInfo.objects.get(user=response.user).picture
     group = response.user.groups.get(user=response.user)
     hosting_places = None
@@ -43,14 +41,27 @@ def myprofile(response):
         if str(guideinfo)!="<QuerySet []>": guideinfo=guideinfo[0]
 
     return render(response, "main/myprofile.html", {
-        'ip': public_ip,
-        'loc': loc,
-        'phone': phone,
+        # 'ip': public_ip,
+        # 'loc': loc,
+        'profileinfo': profileinfo,
         'profile_pic': picture,
         'hosting_places': str(hosting_places_names)[1:-1:],
         'hosting_places_len': len(hosting_places_names),
         'guideinfo': guideinfo,
         })
+
+def editabout(response):
+    profileinfo = UserProfileInfo.objects.get(user=response.user)
+    about = profileinfo.about
+    return render(response, "main/editabout.html", {'about': about})
+
+def saveabout(response):
+    if response.method == 'POST':
+        message = response.POST['message']
+        profileinfo = UserProfileInfo.objects.get(user=response.user)
+        profileinfo.about = message[0:1000:]
+        profileinfo.save()
+    return myprofile(response)
 
 
 def toggle_active(response):
@@ -82,7 +93,6 @@ def sendmessage(response, username):
 
 def messagetouser(response, username):
     return render(response, 'main/messagetouser.html', {'username': username})
-
 
 def about(response):
     return render(response, "main/about.html", {})
