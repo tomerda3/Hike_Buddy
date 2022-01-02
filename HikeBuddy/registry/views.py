@@ -21,7 +21,6 @@ def signup(response):
 
             profile = profile_form.save(commit=False)
             profile.user = user
-
             profile.phone = profile_form.cleaned_data['phone']
             profile.save()
         
