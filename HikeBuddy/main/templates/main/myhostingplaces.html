@@ -18,6 +18,7 @@
 {% endblock %}
 
 {% load crispy_forms_tags %}
+{% load static %}
 
 {% block content %}
 {% if user.is_authenticated and user.groups.get.name == 'host'%}
@@ -83,9 +84,18 @@
 </form>
 
 	<br><br>
-	{% if hosting_places %}
+
+	{% if not hosting_places %}
+		No hosting place matched your search.
+		<br><br>
+	{% else %}
+
 		<table>
 			<colgroup>
+				<col class="blue" />
+				<col class="white" />
+				<col class="white" />
+				<col class="white" />
 				<col class="blue" />
 				<col class="white" />
 				<col class="white" />
@@ -157,12 +167,17 @@
 						<center><b><a href="?order_by=-bar">Bar</a></b></center>
 					</td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td>
+						<center><b><a href="?order_by=-bar">Gallery</a></b></center>
+					</td>
 				</tr>
 
 			{% for hp in hosting_places %}
 				<tr class="border_bottom">
 					<td>
-						<center>{{hp.name}}</center>
+					<center>
+						<a href="/profile/{{hp.username}}">{{ hp.name }}</a>
+					</center>
 					</td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 					<td>
@@ -172,6 +187,9 @@
 					<td>
 						{% if hp.fireplace %}
 							<center>✔</center>
+							<!-- <center>❌</center> -->
+							<!-- <center>✖</center> -->
+							<!-- <center>✓</center> -->
 						{% endif %}
 					</td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
@@ -228,6 +246,16 @@
 							<center>✔</center>
 						{% endif %}
 					</td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td>
+						{% if hp.picture %}
+						<center>
+							<a target="_blank" href="{% static hp.picture.path %}">View</a>
+						</center>
+						{% else %}
+						<center>None</center>
+						{% endif %}
+					</td>
 				</tr>
 			{% endfor %}
 		</table>
@@ -238,7 +266,6 @@
 		{{form|crispy}}
 		<button type="submit" class="btn btn-primary">Add a hosting place</button>
 	</form>
-
 
 </center>
 
