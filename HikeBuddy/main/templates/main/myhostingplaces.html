@@ -83,7 +83,12 @@
 </form>
 
 	<br><br>
-	{% if hosting_places %}
+
+	{% if not hosting_places %}
+		No hosting place matched your search.
+		<br><br>
+	{% else %}
+
 		<table>
 			<colgroup>
 				<col class="blue" />
@@ -238,7 +243,6 @@
 		{{form|crispy}}
 		<button type="submit" class="btn btn-primary">Add a hosting place</button>
 	</form>
-
 
 </center>
 
