@@ -103,6 +103,9 @@ def planroute(response):
             show = False
     if guideinfo: guide_routes = guideinfo.routes
 
+    for trail in trail_data:
+        trail.append(trail[0].replace(' ', '+'))
+
     return render(response, "main/planroute.html", {
         'loc': loc,
         'trails': trail_data,
@@ -258,7 +261,7 @@ def myhostingplaces(response):
 
 def createHost(response):
     if response.method == "POST":
-        form = HostForm(response.POST,response.FILES)
+        form = HostForm(response.POST, response.FILES)
 
         if form.is_valid():
             form.name = form.cleaned_data["name"]
@@ -284,11 +287,10 @@ def createHost(response):
 
             hp.save()
 
-            return home(response)
+            return myhostingplaces(response)
 
     else:
         form = HostForm()
-
     return render(response, "main/myhostingplaces.html", {"form":form})
 
 def guideinfo(response):
