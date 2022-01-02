@@ -1,4 +1,4 @@
-from django.urls import path,include
+from django.urls import path, include
 
 from . import views
 
@@ -19,5 +19,7 @@ path("profile/<username>", views.profile, name="profile"),
 path("profile/", views.myprofile, name="myprofile"),
 path("addroute/<route>", views.addroute, name="addroute"),
 path("messagetouser/<username>", views.messagetouser, name="messagetouser"),
-path("sendmessage/<username>", views.sendmessage, name="sendmessage")
+path("sendmessage/<username>", views.sendmessage, name="sendmessage"),
+path("editabout/", views.editabout, name="editabout"),
+path("saveabout/", views.saveabout, name="saveabout"),
 ]
