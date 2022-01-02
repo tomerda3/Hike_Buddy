@@ -3,6 +3,7 @@ from django.db import models
 from django import forms
 from .models import HostingPlace
 from .models import GuideInfo
+from registry.models import UserProfileInfo
 
 
 class HostForm(forms.Form):
