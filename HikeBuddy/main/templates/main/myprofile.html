@@ -48,10 +48,10 @@
 			<td>{{user.last_name.capitalize}}</td>
 		</tr>
 		{% endif %}
-		{% if phone %}
+		{% if profileinfo.phone %}
 		<tr>
 			<td>Phone number:&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			<td>{{phone}}</td>
+			<td>{{profileinfo.phone}}</td>
 		</tr>
 		{% endif %}
 		<tr>
@@ -92,14 +92,14 @@
 			<td><a href='/guideinfo/'>Add guide info</a></td>
 		</tr>
 		{% endif %}
-		<!-- <tr>
-			<td>Location:&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			<td>{{loc}}</td>
+		<tr>
+			<td>About me:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td><a href="/editabout/">edit</a><td>
 		</tr>
 		<tr>
-			<td>IP:&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			<td>{{ip}}</td>
-		</tr> -->
+			<td></td>
+			<td>{{profileinfo.about}}</td>
+		</tr>
 	</table>
 	
 	<br><br><br>
