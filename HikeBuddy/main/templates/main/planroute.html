@@ -128,8 +128,8 @@ You must provide some guide info in order to add routes to your profile.</p>
 		<td><center><b>Guide</b></center></td>
 			<td>&nbsp;&nbsp;&nbsp;</td>
 		<td><center><b>Weather</b></center></td>
+			<td>&nbsp;&nbsp;&nbsp;</td>
 		{% if user.is_authenticated and user.groups.get.name == 'guide'%}
-				<td>&nbsp;&nbsp;&nbsp;</td>
 			<td><center><b>Add</b></center></td>
 				<td>&nbsp;&nbsp;&nbsp;</td>
 		{% endif %}
@@ -282,8 +282,8 @@ You must provide some guide info in order to add routes to your profile.</p>
 		</div>
 		{%endif%}
 
+			<td>&nbsp;&nbsp;&nbsp;</td>
 		{% if user.is_authenticated and user.groups.get.name == 'guide'%}
-		<td>&nbsp;&nbsp;&nbsp;</td>
 			<td><center>
 				<form method="POST" action="/addroute/{{trail.0}}" class="form-group">
 					{% csrf_token %}
