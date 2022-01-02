@@ -30,7 +30,6 @@ def home(response):
     return render(response, "main/home.html", {})
 
 def checkmontly():
-    print("checkmontly")
     path = "static\\logs"
     logs = os.listdir(path)
     date = str(datetime.datetime.now())
@@ -39,7 +38,7 @@ def checkmontly():
     date = date.replace(':', '')
     date = date[0:10:]
     day = datetime.datetime.now().day
-    if day == 2 and date not in logs:  # day == 1
+    if day == 1 and date not in logs:  # day == 1
         return True
     return False
 
@@ -48,18 +47,21 @@ def sendmonthlyemail():
     print(subject)
 
     for user in UserProfileInfo.objects.all():
-        message = "Hello " + user.user.username + ". Here's your monthly report:\n"
+        message = "Hello " + user.user.username + ". Here's your monthly report: \n"
 
         if str(user.user.groups.get()) == 'host':
-            message = message + "Your Host Place name:" + user.user.name +"\n"+"Your Host Place location:" + user.location + "\n"+"Your Host Place location:" + user.location + "\n"+"Host Place genral info:fireplace:"+ user.fireplace+"\nsingleBeds:" + user.singleBeds+"\ndoubleBeds:" + user.doubleBeds+"\nfreeWiFi:" + user.freeWiFi+"\nelectricity:" + user.electricity+"\nbreakfast:" + user.breakfast+"\nairConditioning:" + user.airConditioning+"\nparking:" + user.parking+"\nbar:" + user.bar
+            message += "Your hosting places: \n"
+            hosting_places = HostingPlace.objects.filter(username = response.user.username)
+            for hp in hosting_places:
+                message = message + hp.name + "\n"
 
         if str(user.user.groups.get()) == 'guide':
-            message = message + "Your guide indo:" + user.user.name +"\n" + "Your routes:" + user.routes + "\n" + "Your price:" + user.cost + "\n" + "Host Place genral info:" + "\ncarryweapon:" + user.carryweapon + "\nmedic:" + user.medic + "\ntransportationvehicle:" + user.transportationvehicle
+            guideinfo = GuideInfo.objects.filter(username = response.user.username)
+            message += "Your guide info:\n"
+            message = message + "Your routes: " + guideinfo.routes + "\nYour price: " + guideinfo.cost
+            + "\nCarries a weapon:" + guideinfo.carryweapon + "\nMedic:" + guideinfo.medic
+            + "\nTransportation Vehicle:" + guideinfo.transportationvehicle
 
-        if str(user.user.groups.get()) == 'traveler':
-            message = message + "Your traveler information:\n your email:" + user.user.email +"\n"+"Your phone:" + user.phone
-
-        message = message + "\n if you have any change in your information please let us know "
         send_mail(subject, message, 'HikeBuddy100@gmail.com', [user.user.email])
 
 def myprofile(response):
@@ -126,6 +128,7 @@ def feedback(response):
 def sendmessage(response, username):
     if response.method == 'POST':
         message = response.POST['message']
+        message = message + "\n\nMy email: " + User.objects.get(username=response.user.username).email
         send_mail('Hike Buddy: A new message from '+str(response.user.username),
          message,
          settings.EMAIL_HOST_USER,
