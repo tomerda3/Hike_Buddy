@@ -10,7 +10,7 @@
 <center><h1>Create Hosting Places</h1></center>
 
 
-	<form method="post" action="/createHost/" class="form-group">
+	<form method="post" action="/createHost/" class="form-group" enctype="multipart/form-data">
 		{% csrf_token %}
 		{{form.name|as_crispy_field}}
 		{{form.location|as_crispy_field}}
@@ -38,10 +38,11 @@
 		{{form.bar|as_crispy_field}}
 			</td>
 			<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>			<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>			<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			<td>
-		{{form.picture}}
-			</td>
+			</tr>
+			<tr>
 		</tr></table>
+
+		{{form.picture|as_crispy_field}}
 
 		<div class="input-group mb-3">
 	  		<div class="input-group-prepend">
