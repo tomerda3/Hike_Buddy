@@ -1,6 +1,4 @@
 from django.db import models
-# from django.contrib.auth.models import User
-# from registry.models import UserProfileInfo
 from django import forms
 
 # Create your models here.
