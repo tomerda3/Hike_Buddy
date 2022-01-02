@@ -103,6 +103,9 @@ def planroute(response):
             show = False
     if guideinfo: guide_routes = guideinfo.routes
 
+    for trail in trail_data:
+        trail.append(trail[0].replace(' ', '+'))
+
     return render(response, "main/planroute.html", {
         'loc': loc,
         'trails': trail_data,
