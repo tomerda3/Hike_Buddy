@@ -32,7 +32,7 @@
 	<p>Not registered yet? <a href="/signup/">Sign up</a></p>
 {% else %}	
 
-	<center>
+<center>
 
 <form method="GET">
 	<table>
@@ -65,6 +65,10 @@
 </form>
 
 	<br><br>
+
+	{% if not guides %}
+		No guides matched your search.
+	{% else %}
 
 <table>
 			<colgroup>
@@ -165,9 +169,9 @@
 			{% endfor %}
 		</table>
 
-	</center>
+	{% endif %}
 
-
+</center>
 
 {% endif %}
 {% endblock %}
