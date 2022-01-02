@@ -8,9 +8,10 @@ import os
 from django.contrib.auth.models import Group
 from registry.models import UserProfileInfo
 from .models import HostingPlace, GuideInfo
-
 from .filters import HostingPlaceFilter, GuideInfoFilter
-
+import datetime
+from django.contrib.auth.models import User
+from django.core.mail import send_mail
 # Create your views here.
 
 def getUserProfileInfo(usr):
@@ -18,7 +19,48 @@ def getUserProfileInfo(usr):
         return upi
 
 def home(response):
+    if checkmontly():
+        date = str(datetime.datetime.now())
+        date = date.replace(' ', '')
+        date = date.replace('.', '')
+        date = date.replace(':', '')
+        date = date[0:10:]
+        f = open('static\\logs\\'+date, 'w')
+        sendmonthlyemail()
     return render(response, "main/home.html", {})
+
+def checkmontly():
+    print("checkmontly")
+    path = "static\\logs"
+    logs = os.listdir(path)
+    date = str(datetime.datetime.now())
+    date = date.replace(' ', '')
+    date = date.replace('.', '')
+    date = date.replace(':', '')
+    date = date[0:10:]
+    day = datetime.datetime.now().day
+    if day == 2 and date not in logs:  # day == 1
+        return True
+    return False
+
+def sendmonthlyemail():
+    subject = "Hike Buddy monthly report"
+    print(subject)
+
+    for user in UserProfileInfo.objects.all():
+        message = "Hello " + user.user.username + ". Here's your monthly report:\n"
+
+        if str(user.user.groups.get()) == 'host':
+            message = message + "Your Host Place name:" + user.user.name +"\n"+"Your Host Place location:" + user.location + "\n"+"Your Host Place location:" + user.location + "\n"+"Host Place genral info:fireplace:"+ user.fireplace+"\nsingleBeds:" + user.singleBeds+"\ndoubleBeds:" + user.doubleBeds+"\nfreeWiFi:" + user.freeWiFi+"\nelectricity:" + user.electricity+"\nbreakfast:" + user.breakfast+"\nairConditioning:" + user.airConditioning+"\nparking:" + user.parking+"\nbar:" + user.bar
+
+        if str(user.user.groups.get()) == 'guide':
+            message = message + "Your guide indo:" + user.user.name +"\n" + "Your routes:" + user.routes + "\n" + "Your price:" + user.cost + "\n" + "Host Place genral info:" + "\ncarryweapon:" + user.carryweapon + "\nmedic:" + user.medic + "\ntransportationvehicle:" + user.transportationvehicle
+
+        if str(user.user.groups.get()) == 'traveler':
+            message = message + "Your traveler information:\n your email:" + user.user.email +"\n"+"Your phone:" + user.phone
+
+        message = message + "\n if you have any change in your information please let us know "
+        send_mail(subject, message, 'HikeBuddy100@gmail.com', [user.user.email])
 
 def myprofile(response):
     # public_ip = get_public_ip()
