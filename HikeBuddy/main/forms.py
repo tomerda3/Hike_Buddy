@@ -37,7 +37,9 @@ class HostForm(forms.Form):
             'bar',
             'picture',
             )
-###############################
+
+
+
 class GuideForm(forms.Form):
     cost = forms.FloatField(required=True)
     carryweapon = forms.BooleanField(required=False, initial=False, label="Carry Weapon")
