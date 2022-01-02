@@ -125,9 +125,11 @@ You must provide some guide info in order to add routes to your profile.</p>
 			<td>&nbsp;&nbsp;&nbsp;</td>
 		<td><center><b>Map</b></center></td>
 			<td>&nbsp;&nbsp;&nbsp;</td>
+		<td><center><b>Guide</b></center></td>
+			<td>&nbsp;&nbsp;&nbsp;</td>
 		<td><center><b>Weather</b></center></td>
+			<td>&nbsp;&nbsp;&nbsp;</td>
 		{% if user.is_authenticated and user.groups.get.name == 'guide'%}
-				<td>&nbsp;&nbsp;&nbsp;</td>
 			<td><center><b>Add</b></center></td>
 				<td>&nbsp;&nbsp;&nbsp;</td>
 		{% endif %}
@@ -146,7 +148,11 @@ You must provide some guide info in order to add routes to your profile.</p>
 			<td>&nbsp;&nbsp;&nbsp;</td>
 		<td><center><a href={{trail.3}} target="map">View</a></center></td>
 			<td>&nbsp;&nbsp;&nbsp;</td>
-			{%if trail.0  == 'Surround Beer Sheva' %}
+		<td><center><a href="/findguide/?routes={{trail.4}}">Search</a></center></td>
+			<td>&nbsp;&nbsp;&nbsp;</td>
+
+
+			{% if trail.0  == 'Surround Beer Sheva' %}
 			<td><center><a href="#popup_flight_travlDil1" target="weather">Weather</a></center></td>
 			<div id="popup_flight_travlDil1" class="overlay_flight_traveldil">
 			<div class="popup_flight_travlDil">
@@ -156,8 +162,8 @@ You must provide some guide info in order to add routes to your profile.</p>
 		<script src="//rss.bloople.net/?url=https%3A%2F%2Fweather-broker-cdn.api.bbci.co.uk%2Fen%2Fforecast%2Frss%2F3day%2F295530&showtitle=false&type=js"></script>				</div>
 			</div>
 		</div>
-		{%endif%}
-		{%if trail.0  == 'Carmila River and Ksalon River' %}
+
+		{% elif trail.0  == 'Carmila River and Ksalon River' %}
 			<td><center><a href="#popup_flight_travlDil2" target="weather">Weather</a></center></td>
 			<div id="popup_flight_travlDil2" class="overlay_flight_traveldil">
 			<div class="popup_flight_travlDil">
@@ -168,8 +174,8 @@ You must provide some guide info in order to add routes to your profile.</p>
 				</div>
 			</div>
 		</div>
-		{%endif%}
-		{%if trail.0  == 'Clay Stream' %}
+
+		{% elif trail.0  == 'Clay Stream' %}
 			<td><center><a href="#popup_flight_travlDil3" target="weather">Weather</a></center></td>
 			<div id="popup_flight_travlDil3" class="overlay_flight_traveldil">
 			<div class="popup_flight_travlDil">
@@ -180,8 +186,8 @@ You must provide some guide info in order to add routes to your profile.</p>
 				</div>
 			</div>
 		</div>
-		{%endif%}
-		{%if trail.0  == 'Golan Trail' %}
+
+		{% elif trail.0  == 'Golan Trail' %}
 			<td><center><a href="#popup_flight_travlDil4" target="weather">Weather</a></center></td>
 			<div id="popup_flight_travlDil4" class="overlay_flight_traveldil">
 			<div class="popup_flight_travlDil">
@@ -192,8 +198,8 @@ You must provide some guide info in order to add routes to your profile.</p>
 				</div>
 			</div>
 		</div>
-		{%endif%}
-		{%if trail.0  == 'Jerusalem Trail' %}
+
+		{% elif trail.0  == 'Jerusalem Trail' %}
 			<td><center><a href="#popup_flight_travlDil5" target="weather">Weather</a></center></td>
 			<div id="popup_flight_travlDil5" class="overlay_flight_traveldil">
 			<div class="popup_flight_travlDil">
@@ -204,8 +210,8 @@ You must provide some guide info in order to add routes to your profile.</p>
 				</div>
 			</div>
 		</div>
-		{%endif%}
-		{%if trail.0  == 'Negev Mountain Trail' %}
+
+		{% elif trail.0  == 'Negev Mountain Trail' %}
 			<td><center><a href="#popup_flight_travlDil6" target="weather">Weather</a></center></td>
 			<div id="popup_flight_travlDil6" class="overlay_flight_traveldil">
 			<div class="popup_flight_travlDil">
@@ -216,8 +222,8 @@ You must provide some guide info in order to add routes to your profile.</p>
 				</div>
 			</div>
 		</div>
-		{%endif%}
-		{%if trail.0  == 'Ramat Menashe Trail' %}
+
+		{% elif trail.0  == 'Ramat Menashe Trail' %}
 			<td><center><a href="#popup_flight_travlDil7" target="weather">Weather</a></center></td>
 			<div id="popup_flight_travlDil7" class="overlay_flight_traveldil">
 			<div class="popup_flight_travlDil">
@@ -228,8 +234,8 @@ You must provide some guide info in order to add routes to your profile.</p>
 				</div>
 			</div>
 		</div>
-		{%endif%}
-		{%if trail.0  == 'Sea to Sea Trail' %}
+
+		{% elif trail.0  == 'Sea to Sea Trail' %}
 			<td><center><a href="#popup_flight_travlDil9" target="weather">Weather</a></center></td>
 			<div id="popup_flight_travlDil9" class="overlay_flight_traveldil">
 			<div class="popup_flight_travlDil">
@@ -240,8 +246,8 @@ You must provide some guide info in order to add routes to your profile.</p>
 				</div>
 			</div>
 		</div>
-		{%endif%}
-		{%if trail.0  == 'Springs Valley Trail' %}
+
+		{% elif trail.0  == 'Springs Valley Trail' %}
 			<td><center><a href="#popup_flight_travlDil10" target="weather">Weather</a></center></td>
 			<div id="popup_flight_travlDil10" class="overlay_flight_traveldil">
 			<div class="popup_flight_travlDil">
@@ -252,8 +258,8 @@ You must provide some guide info in order to add routes to your profile.</p>
 				</div>
 			</div>
 		</div>
-		{%endif%}
-		{%if trail.0  == 'Surround Ramon Crater' %}
+		
+		{% elif trail.0  == 'Surround Ramon Crater' %}
 			<td><center><a href="#popup_flight_travlDil8" target="weather">Weather</a></center></td>
 			<div id="popup_flight_travlDil8" class="overlay_flight_traveldil">
 			<div class="popup_flight_travlDil">
@@ -264,8 +270,8 @@ You must provide some guide info in order to add routes to your profile.</p>
 				</div>
 			</div>
 		</div>
-		{%endif%}
-		{%if trail.0  == 'Through The Gospel' %}
+		
+		{% elif trail.0  == 'Through The Gospel' %}
 			<td><center><a href="#popup_flight_travlDil11" target="weather">Weather</a></center></td>
 			<div id="popup_flight_travlDil11" class="overlay_flight_traveldil">
 			<div class="popup_flight_travlDil">
@@ -276,10 +282,12 @@ You must provide some guide info in order to add routes to your profile.</p>
 				</div>
 			</div>
 		</div>
-		{%endif%}
+		{% else %}
+			<td><center>Unspecified</center></td>
+		{% endif %}
 
+			<td>&nbsp;&nbsp;&nbsp;</td>
 		{% if user.is_authenticated and user.groups.get.name == 'guide'%}
-		<td>&nbsp;&nbsp;&nbsp;</td>
 			<td><center>
 				<form method="POST" action="/addroute/{{trail.0}}" class="form-group">
 					{% csrf_token %}
