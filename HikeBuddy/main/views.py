@@ -70,6 +70,20 @@ def feedback(response):
          fail_silently=False)
     return render(response, 'main/thankyou.html')
 
+def sendmessage(response, username):
+    if response.method == 'POST':
+        message = response.POST['message']
+        send_mail('Hike Buddy: A new message from '+str(response.user.username),
+         message,
+         settings.EMAIL_HOST_USER,
+         [str(User.objects.get(username = username).email)],
+         fail_silently=False)
+    return render(response, 'main/thankyou2.html')
+
+def messagetouser(response, username):
+    return render(response, 'main/messagetouser.html', {'username': username})
+
+
 def about(response):
     return render(response, "main/about.html", {})
 
@@ -193,6 +207,7 @@ def profile(response, username):
 
     guideinfo = None
     guide_routes = None
+    Group.objects.get_or_create(name='guide')
     group = Group.objects.get(name='guide')
     try:
         guide = group.user_set.get(username=username)
