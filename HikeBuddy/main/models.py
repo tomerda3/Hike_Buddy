@@ -20,12 +20,12 @@ class HostingPlace(models.Model):
     parking = models.BooleanField(default=False)
     bar = models.BooleanField(default=False)
     username = models.CharField(max_length=200, default='')
-    picture = models.ImageField(blank=True, upload_to='static\\media\\host_pics')
-
-
+    picture = models.ImageField(upload_to='static\\media\\host_pics', blank=True)
 
     def __str__(self):
         return self.name
+
+
 
 class GuideInfo(models.Model):
 
