@@ -1,5 +1,24 @@
 {% extends 'main/base.html' %}
 
+{% block style %}
+	img {
+		border-radius: 10%;
+		border: 2px solid #3880fa;
+		object-fit: cover;
+	}
+
+	table {
+    	table-layout: fixed;
+    	width: 800px;
+	}
+	td {
+		vertical-align: top;
+	}
+{% endblock %}
+
+{% load crispy_forms_tags %}
+{% load static %}
+
 {% block content %}
 <center><h1>Home</h1></center>
 
@@ -8,5 +27,57 @@
 	<p>Not registered yet? <a href="/signup/">Sign up</a></p>
 {% endif %}
 
+<center>
+
+	<p>
+		Become a part of a growing community!<br>
+		Each user type has it's unique features:
+	</p>
+
+	<table>
+		<tr>
+			<td><center>
+				<img src='{% static "\\media\\home_pics\\traveler.jpg" %}' alt="Avatar" height=180px width=180px>
+			</center></td>
+
+			<td><center>
+				<img src='{% static "\\media\\home_pics\\host.jpg" %}' alt="Avatar" height=180px width=180px>
+			</center></td>
+
+			<td><center>
+				<img src='{% static "\\media\\home_pics\\guide.jpg" %}' alt="Avatar" height=180px width=180px>
+			</center></td>
+		</tr>
+
+		<tr>
+			<td>
+				<center><b>Traveler:</b></center>
+					<ul>
+						<li>Plan routes</li>
+						<li>Search for hosts</li>
+						<li>Search for guides</li>
+					</ul>
+			</td>
+
+			<td>
+				<center><b>Host:</b></center>
+					<ul>
+						<li>Add hosting places to the system</li>
+						<li>View and manage your hosting places</li>
+						<li>Promote your properties</li>
+					</ul>
+			</td>
+
+			<td>
+				<center><b>Guide:</b></center>
+					<ul>
+						<li>Add your guide information to the system</li>
+						<li>Add routes to your profile</li>
+						<li>Prorvide yourself with job opportunities</li>
+					</ul>
+			</td>
+		</tr>
+	</table>
+</center>
 
 {% endblock %}
