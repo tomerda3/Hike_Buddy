@@ -38,7 +38,7 @@ def checkmontly():
     date = date.replace(':', '')
     date = date[0:10:]
     day = datetime.datetime.now().day
-    if day == 4 and date not in logs:  # day == 1
+    if day == 1 and date not in logs:  # day == 1
         return True
     return False
 
