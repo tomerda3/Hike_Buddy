@@ -26,7 +26,7 @@ def home(response):
         date = date.replace(':', '')
         date = date[0:10:]
         f = open('static\\logs\\'+date, 'w')
-        sendmonthlyemail()
+        sendmonthlyemail(response)
     return render(response, "main/home.html", {})
 
 def checkmontly():
@@ -38,17 +38,17 @@ def checkmontly():
     date = date.replace(':', '')
     date = date[0:10:]
     day = datetime.datetime.now().day
-    if day == 1 and date not in logs:  # day == 1
+    if day == 4 and date not in logs:  # day == 1
         return True
     return False
 
-def sendmonthlyemail():
+def sendmonthlyemail(response):
     subject = "Hike Buddy monthly report"
     print(subject)
 
     for user in UserProfileInfo.objects.all():
         message = "Hello " + user.user.username + ". Here's your monthly report: \n"
-
+        message = message + "Group: " + str(user.user.groups.get()) + "\n"
         if str(user.user.groups.get()) == 'host':
             message += "Your hosting places: \n"
             hosting_places = HostingPlace.objects.filter(username = response.user.username)
@@ -57,10 +57,12 @@ def sendmonthlyemail():
 
         if str(user.user.groups.get()) == 'guide':
             guideinfo = GuideInfo.objects.filter(username = response.user.username)
-            message += "Your guide info:\n"
-            message = message + "Your routes: " + guideinfo.routes + "\nYour price: " + guideinfo.cost
-            + "\nCarries a weapon:" + guideinfo.carryweapon + "\nMedic:" + guideinfo.medic
-            + "\nTransportation Vehicle:" + guideinfo.transportationvehicle
+            if str(guideinfo) != "<QuerySet []>":
+                guideinfo=guideinfo[0]
+                message = message + "Your guide info:\n"
+                message = message + "Your routes: " + str(guideinfo.routes) + "\nYour price: " + str(guideinfo.cost)
+                message = message + "\nCarries a weapon:" + str(guideinfo.carryweapon) + "\nMedic:" + str(guideinfo.medic)
+                message = message + "\nTransportation Vehicle:" + str(guideinfo.transportationvehicle)
 
         send_mail(subject, message, 'HikeBuddy100@gmail.com', [user.user.email])
 
