@@ -37,3 +37,6 @@ class TestForms(SimpleTestCase):
         })
         self.assertFalse(form3.is_valid())
 
+    def test_GuideForm2(self):
+        form = GuideForm(data={})
+        self.assertFalse(form.is_valid())
