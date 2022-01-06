@@ -19,3 +19,11 @@ class TestForms(SimpleTestCase):
         })
         self.assertTrue(form.is_valid())
 
+
+    def test_UserForm2(self):
+        form = UserForm(data={})
+        self.assertFalse(form.is_valid())
+
+    def test_UserProfileInfoForm2(self):
+        form = UserForm(data={})
+        self.assertFalse(form.is_valid())
