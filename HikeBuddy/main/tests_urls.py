@@ -1,5 +1,5 @@
 from django.test import TestCase ,Client
-from main.views import areyousure,home,contact,planroute,findhost,myhostingplaces,createhostingplace,createHost,guideinfo,createGuide,profile,addroute
+from main.views import areyousure,home,contact,planroute,findhost,myhostingplaces,createhostingplace,createHost,guideinfo,createGuide,editabout,saveabout,about,messagetouser
 from django.urls import reverse, resolve
 from main.forms import HostForm
 
@@ -49,31 +49,24 @@ class TestsURL(TestCase):
         url = reverse('createGuide')
         self.assertEqual(resolve(url).func, createGuide)
 
-    def test_profile(self):
-        url = reverse('profile')
-        self.assertEqual(resolve(url).func, profile)
+    def test_about(self):
+        url = reverse('about')
+        self.assertEqual(resolve(url).func, about)
 
 
-    def test_addroute(self):
-        url = reverse('addroute')
-        self.assertEqual(resolve(url).func, addroute)
+    def test_editabout(self):
+        url = reverse('editabout')
+        self.assertEqual(resolve(url).func, editabout)
+
+
+    def test_editabout(self):
+        url = reverse('saveabout')
+        self.assertEqual(resolve(url).func, saveabout)
 
 
 
-'''
-    def test_HostForm(self):
-        form =HostForm(data={
-            'name':'tomer',
-            'fireplace': 'True',
-            'singleBeds':'True',
-            'doubleBeds':'True',
-            'freeWiFi':'True',
-            'showers':'True',
-            'electricity':'True',
-            'breakfast':'True',
-            'airConditioning':'True',
-            'parking':'True',
-            'bar':'True',
-        })
-        self.assertNotTrue(form.is_valid())
-'''
+
+
+
+
+
