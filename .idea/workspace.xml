@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fb5067f3-dbe3-4750-ae10-278354cd6eab" name="Changes" comment="try1">
-      <change beforePath="$PROJECT_DIR$/HikeBuddy/static/trails/sea_to_sea_trail.txt" beforeDir="false" afterPath="$PROJECT_DIR$/HikeBuddy/static/trails/sea_to_sea_trail.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,7 +36,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../עקרונות שפת תוכנה/עבודות/דף עבודה - 10" />
+    <property name="last_opened_file_path" value="$USER_HOME$/OneDrive/Desktop/HikeBuddy" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunManager">
